@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a091b"
+    android:orientation="vertical" >
+
+    <include layout="@layout/slidingmenu_title" />
+
+    <ListView
+        android:id="@+id/behind_list_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:divider="#0a091b"
+        
+        android:layout_marginTop="@dimen/slidingmenu_title_height"
+        
+        android:listSelector="#0fff"
+        android:cacheColorHint="#0000" >
+    </ListView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ad_height"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/bottom_button_height"
+         >
+    </FrameLayout>
+
+    
+
+</FrameLayout>

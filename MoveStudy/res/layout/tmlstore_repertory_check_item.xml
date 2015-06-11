@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/white" >
+
+    <!-- 库存盘点中每种包装的item，显示时需要根据 sku 对应的包装各类来显示，但是控件是一样的，所以分离出来 -->
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true" >
+
+        <ImageView
+            android:id="@+id/iv_single_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/beer1" />
+
+        <TextView
+            android:id="@+id/tv_single_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_single_pic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:text="单听"
+            android:textColor="@color/normal_textcolor1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/single_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="听"
+            android:textColor="@color/normal_textcolor1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/single_unit" >
+
+        <RelativeLayout
+            android:id="@+id/et_single_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true" >
+
+            <EditText
+                android:id="@+id/ev_single"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="22.5dp"
+            android:layout_above="@+id/et_single_layout" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:text="库存"
+                android:textColor="@color/normal_textcolor1" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

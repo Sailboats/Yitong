@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name = "area">
+        <item>成都</item>
+        <item>上海</item>
+    </string-array>
+    <string-array name = "comply">
+        <item>大成超市</item>
+        <item>xx火锅店</item>
+    </string-array>
+    <string-array name = "fault">
+        <item>大成超市</item>
+        <item>xx火锅店</item>
+    </string-array>
+</resources>
