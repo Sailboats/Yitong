@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="red">#900</color>
+    <color name="green">#090</color>
+    <color name="blue">#009</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="transparent">#0000</color>
+    <color name="gray">#bbb</color>
+    <color name="backColor">#0a091b</color>
+    <color name="detail_bgColor">#f5f5f5</color>
+    <color name="defaultTextColor">#666</color>
+
+    <!-- start zxing -->
+    <color name="viewfinder_frame">#2477ab</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <!-- end zxing -->
+
+
+    <!-- 标准颜色 -->
+    <!-- vi主色调1：#55A2CE，用于菜单、按钮等非背景的大面积色块 -->
+    <color name="main_color1">#55A2CE</color>
+    <!-- vi主色调2：#015198，同上，和vi主色调1搭配，比如区分出菜单的头部 -->
+    <color name="main_color2">#015198</color>
+    <!-- 普通页面背景色：# F2EDEE -->
+    <color name="normal_layout_background">#F2EDEE</color>
+    <!-- 文字颜色1：# 636363 -->
+    <color name="normal_textcolor1">#636363</color>
+    <!-- 文字颜色2：# 919191，通常情况下，只用使用一种字体时，就只配合使用颜色1；如果使用多种字体且文字直接有级别区分，则上级文字使用颜色1，下级字体使用颜色2 -->
+    <color name="normal_textcolor2">#919191</color>
+    <!-- 可点击文本、超链接颜色：#324888 -->
+    <color name="href_color">#324888</color>
+
+</resources>

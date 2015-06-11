@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/normal_layout_background" >
+
+    <include
+        android:id="@+id/tmlstore_listview_item_enter_include"
+        layout="@layout/above_title" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tmlstore_listview_item_enter_include"
+        layout="@layout/top_border" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tmlstore_listview_item_enter_include"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white" >
+
+        <ImageView
+            android:id="@+id/tmlstore_listview_item_enter_iv"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tmlstore_listview_item_enter_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/tmlstore_listview_item_enter_btn_find"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/title_height"
+            android:layout_weight="1"
+            android:background="#3A5FCD"
+            android:text="库存盘点"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/tmlstore_listview_item_enter_btn_add"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/title_height"
+            android:layout_weight="1"
+            android:background="#3A5FCD"
+            android:text="进货录入"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

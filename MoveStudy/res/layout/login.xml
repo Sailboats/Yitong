@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    
+    android:background="#2477ab" >
+   	
+    <Button 
+        android:id="@+id/brand_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "品牌商登录"
+        />
+    
+    <Button 
+        android:id="@+id/dis_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "分销商登录"
+
+        />
+    <Button 
+        android:id="@+id/tml_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "终端店登录"
+
+        />
+
+</LinearLayout>

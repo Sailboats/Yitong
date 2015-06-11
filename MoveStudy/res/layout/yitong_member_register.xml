@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/yitong_findpwd_title"
+        layout="@layout/above_title" />
+
+    <EditText
+        android:id="@+id/yitong_member_register_edt_tel"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="手机号码"
+        android:numeric="integer"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/yitong_member_register_edt_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="密码"
+        android:password="true"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/yitong_member_register_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:background="#3A5FCD"
+        android:text="立即注册"
+        android:textColor="#fff" />
+
+</LinearLayout>

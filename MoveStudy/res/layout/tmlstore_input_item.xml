@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/white" >
+
+    <!-- 进货盘点的单个 item -->
+
+
+    <!-- 显示图片及规格 -->
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/iv_single_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/beer1" />
+
+        <TextView
+            android:id="@+id/tv_single_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_single_pic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:text="单听"
+            android:textColor="@color/normal_textcolor1" />
+    </RelativeLayout>
+
+    <!-- 进货量 -->
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <!-- 显示单位 -->
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="听"
+                android:textColor="@color/normal_textcolor1" />
+        </RelativeLayout>
+
+        <!-- 显示输入框 -->
+
+        <RelativeLayout
+            android:id="@+id/et_single_layout"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" >
+
+            <EditText
+                android:id="@+id/ev_single"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="22.5dp"
+            android:layout_above="@+id/et_single_layout" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:text="进货"
+                android:textColor="@color/normal_textcolor1" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- 进货前库存量 -->
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="听"
+                android:textColor="@color/normal_textcolor1" />
+        </RelativeLayout>
+
+        <!-- 显示输入框 -->
+
+        <RelativeLayout
+            android:id="@+id/et_single_layout1"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" >
+
+            <EditText
+                android:id="@+id/ev_single1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="22.5dp"
+            android:layout_above="@+id/et_single_layout1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:text="进货前库存"
+                android:textColor="@color/normal_textcolor1" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
