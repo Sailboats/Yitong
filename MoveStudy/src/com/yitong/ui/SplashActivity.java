@@ -52,7 +52,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goHome() {
-    	openActivity(YiTong_login_MainActivity.class);
+    	openActivity(LoginActivity.class);
         defaultFinish();
     }
 
