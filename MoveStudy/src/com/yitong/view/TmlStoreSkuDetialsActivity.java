@@ -3,6 +3,9 @@ package com.yitong.view;
 import java.util.List;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVObjectReferenceCount;
+import com.avos.avoscloud.AVQuery;
 import com.example.movestudy.R;
 import com.yitong.avsubobject.Sku;
 import com.yitong.biz.TmlStoreSkusDao;
@@ -124,12 +127,14 @@ public class TmlStoreSkuDetialsActivity extends Activity implements
 
 		case R.id.tmlstore_listview_item_enter_btn_find: // 库存盘点
 			startActivity(new Intent(TmlStoreSkuDetialsActivity.this,
-					TmlStoreRepertoryCheck.class));
+					TmlStoreRepertoryCheck.class).putExtra("id", getIntent()
+					.getStringExtra("id")));
 			break;
 
 		case R.id.tmlstore_listview_item_enter_btn_add: // 进货录入
 			startActivity(new Intent(TmlStoreSkuDetialsActivity.this,
-					TmlStoreGoodsInputActivity.class));
+					TmlStoreGoodsInputActivity.class).putExtra("id",
+					getIntent().getStringExtra("id")));
 			break;
 
 		default:

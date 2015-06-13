@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import android.app.Application;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -26,7 +27,6 @@ public class MyApplication extends Application {
 
 	private String Tag = "MyApplication";
 
-
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -34,7 +34,7 @@ public class MyApplication extends Application {
 
 		// 设置 Last-Modified 模式
 		AVOSCloud.setLastModifyEnabled(true);
-		
+
 		// 注册 LeanCloud 子类(必须在初始化 SDK　之前)
 		AVObject.registerSubclass(Sku.class);
 		AVObject.registerSubclass(TerminalStore.class);
@@ -48,7 +48,6 @@ public class MyApplication extends Application {
 		AVObject.registerSubclass(Promotion.class);
 		AVObject.registerSubclass(Article.class);
 		AVObject.registerSubclass(ImageText.class);
-		
 
 		// 初始化 LeanCloud SDK
 		AVOSCloud.initialize(this,
@@ -57,23 +56,24 @@ public class MyApplication extends Application {
 
 		Log.d(Tag, "AVOSCloud has been inited");
 
-		// 测试代码
-		/*new Thread(){
+		// NOTE:在各个界面渲染 ImageView 的时候不能直接通过 BitmapFactory.decodeByteArray()
+		// 方法来直接解码 AVFile 对象，需要在后台线程中将 AVFile 对象转换成为 byte[] 数组，原因可能是因为 AVFile 的
+		// getDate() 方法不能直接在 UI 线程中调用
 
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				List<String> names = new TmlStoreSkusDao().getAllSkuNames();
-				
-				for (String string : names) {
-					Log.d(Tag, string);
-				}
-				
-			}
-			
-			
-		}.start();*/
-		
+		// 测试代码
+		/*
+		 * new Thread(){
+		 * 
+		 * @Override public void run() { // TODO Auto-generated method stub
+		 * List<String> names = new TmlStoreSkusDao().getAllSkuNames();
+		 * 
+		 * for (String string : names) { Log.d(Tag, string); }
+		 * 
+		 * }
+		 * 
+		 * 
+		 * }.start();
+		 */
 
 	}
 

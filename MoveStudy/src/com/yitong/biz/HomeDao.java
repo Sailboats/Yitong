@@ -9,7 +9,7 @@ import com.yitong.entity.CategorysEntity;
 import com.yitong.entity.HomeResponseEntity;
 
 /**
- * ÓÃÀ´ÏÔÊ¾Ö÷Ò³µÄµÄ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ò³ï¿½Äµï¿½
  * @return
  */
 public class HomeDao implements BaseDao{
@@ -28,12 +28,12 @@ public class HomeDao implements BaseDao{
 	public HomeDao(Activity mActivity){
 		
 	}
-	//»ñÈ¡Êı¾İ
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	public HomeResponseEntity mapperJson(boolean useCache) {
 		// TODO Auto-generated method stub
 
 		
-		//ÉùÃ÷±äÁ¿
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		homeRespose = new HomeResponseEntity();
 		
 	return homeRespose;
@@ -42,7 +42,7 @@ public class HomeDao implements BaseDao{
 	
 	public List<CategorysEntity> getCategorys() {
 		CategorysEntity cate1 = new CategorysEntity();
-		cate1.setName("Ñ¡Ôñ½«Òª½øÈëµÄÄ£¿é");
+		cate1.setName("é€‰æ‹©å°†è¦è¿›å…¥çš„æ¨¡å—");
 		tabs.add(cate1);
 		return tabs;
 	}

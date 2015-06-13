@@ -62,26 +62,19 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
     private final String LIST_TEXT = "text";
     private final String LIST_IMAGEVIEW = "img";
 
-    // [start]±äÁ¿
-    /**
-     * Êı×Ö´ú±íÁĞ±íË³Ğò
-     */
+    
     private int mTag = 0;
 
 
     private View title;
     private LinearLayout mlinear_listview;
 
-    // title±êÌâ
     private ImageView imgLeft;
     private ImageView imgRight;
-    private FrameLayout mFrameTv;//FrameLayoutÊÇ×î¼òµ¥µÄ²¼¾ÖÁË¡£ËùÓĞ·ÅÔÚ²¼¾ÖÀïµÄ¿Ø¼ş£¬¶¼°´ÕÕ²ã´Î¶ÑµşÔÚÆÁÄ»µÄ×óÉÏ½Ç¡£ºó¼Ó½øÀ´µÄ¿Ø¼ş¸²¸ÇÇ°ÃæµÄ¿Ø¼ş¡£
-                                 //ÔÚFrameLayout²¼¾ÖÀï£¬¶¨ÒåÈÎºÎ¿Õ¼äµÄÎ»ÖÃÏà¹ØµÄÊôĞÔ¶¼ºÁÎŞÒâÒå¡£¿Ø¼ş×Ô¶¯µÄ¶Ñ·ÅÔÚ×óÉÏ½Ç£¬¸ù±¾²»ÌıÄãµÄ¿ØÖÆ¡£
+    private FrameLayout mFrameTv;
     private ImageView mImgTv;
 
-    // views
-    private ViewPager mViewPager;//ViewPagerÓÃÓÚÊÓÍ¼Ëæ×ÅÊÖÊÆ»¬¶¯½øĞĞÇĞ»»
-    //private TestPageAdapter mBasePageAdapter;//ÏòviewpagerÀïÃæ¼ÓÈëfragment
+    private ViewPager mViewPager;
     private TitlePageIndicator mIndicator;
     private LinearLayout loadLayout;
     private FrameLayout myindacaterLayout;
@@ -104,7 +97,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
     private Button bn_refresh;
 
     private TextView mAboveTitle;
-    private SlidingMenu sm;//»¬¶¯²Ëµ¥À¸¶ÔÏó
+    private SlidingMenu sm;
     private boolean mIsTitleHide = false;
     private boolean mIsAnim = false;
 
@@ -112,18 +105,14 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 
     private String current_page;
 
-    private InputMethodManager imm;//µ±ÎÒÃÇÔÚAndroidÌá¹©µÄEditTextÖĞµ¥»÷µÄÊ±ºò£¬»á×Ô¶¯µÄµ¯³öÈí¼üÅÌ£¬ÆäÊµ¶ÔÓÚÈí¼üÅÌµÄ¿ØÖÆÎÒÃÇ¿ÉÒÔÍ¨¹ıInputMethodManagerÕâ¸öÀàÀ´ÊµÏÖ¡£
-                                   //ÎÒÃÇĞèÒª¿ØÖÆÈí¼üÅÌµÄ·½Ê½¾ÍÊÇÁ½ÖÖÒ»¸öÊÇÏñEditTextÄÇÑùµ±·¢ÉúonClickÊÂ¼şµÄÊ±ºò³öÏÖ
-                                   //Èí¼üÅÌ£¬»¹ÓĞ¾ÍÊÇµ±´ò¿ªÄ³¸ö³ÌĞòµÄÊ±ºò×Ô¶¯µÄµ¯³öÈí¼üÅÌ¡£
+    private InputMethodManager imm;
 
     private boolean isShowPopupWindows = false;
     
     private Handler mHandler;
 	protected String tag = "TmlStore_MainActivity";
 
-    // [end]
-
-    // [start]ÉúÃüÖÜÆÚ
+   
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,9 +133,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 
     }
 
-    // [end]
-
-    // [start]³õÊ¼»¯º¯Êı
+    
     private void initSlidingMenu() {
         setBehindContentView(R.layout.behind_slidingmenu);
         // customize the SlidingMenu
@@ -167,7 +154,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 //        loadLayout = (LinearLayout) findViewById(R.id.view_loading);
 //        loadFaillayout = (LinearLayout) findViewById(R.id.view_load_fail);
         mAboveTitle = (TextView) findViewById(R.id.tv_above_title);
-        mAboveTitle.setText("Ê×Ò³");
+        mAboveTitle.setText("ä¸»é¡µ");
         //imgQuery.setVisibility(View.GONE);
         imgLeft = (ImageView) findViewById(R.id.imageview_above_left);
         imgRight = (ImageView) findViewById(R.id.imageview_above_right);
@@ -200,7 +187,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         		   NavigationModel navModel = navs.get(msg.what);
                    mAboveTitle.setText(navModel.getName());
                    current_page = navModel.getTags();
-                   View view = lvTitle.getChildAt(msg.what);//»ñÈ¡ListviewÖĞµÄµÚmsg.what¸ö×Óview
+                   View view = lvTitle.getChildAt(msg.what);
                    if (lvTitle.getTag() != null) {
                        if (lvTitle.getTag() == view) {
                            TmlStore_MainActivity.this.showContent();
@@ -227,27 +214,27 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         mIndicator.setViewPager(mViewPager);
         mIndicator.setOnPageChangeListener(new MyPageChangeListener());
        
-        new MyTask().execute(homeDao);//ÉèÖÃ¸Õ¿ªÊ¼µÄÊ±ºòÏÔÊ¾ÄÇÒ»Ò³
+        new MyTask().execute(homeDao);//ï¿½ï¿½ï¿½Ã¸Õ¿ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ò»Ò³
         
     }
 
-    private void initListView() {//mjÉú³Éµ¼º½À¸,Ò²¾ÍÊÇ²Ëµ¥À¸
+    private void initListView() {//mjï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½,Ò²ï¿½ï¿½ï¿½Ç²Ëµï¿½ï¿½ï¿½
         lvAdapter = new SimpleAdapter(this, getData(),
                R.layout.behind_list_show, new String[]{LIST_TEXT,
                 LIST_IMAGEVIEW},
                 new int[]{R.id.textview_behind_title,
-                        R.id.imageview_behind_icon}) {//µÚÒ»¸ö²ÎÊı ±íÊ¾·ÃÎÊÕû¸öandroidÓ¦ÓÃ³ÌĞò½Ó¿Ú£¬»ù±¾ÉÏËùÓĞµÄ×é¼ş¶¼ĞèÒª
-        	// µÚ¶ş¸ö²ÎÊı±íÊ¾Éú³ÉÒ»¸öMap(String ,Object)ÁĞ±íÑ¡Ïî
-        	// µÚÈı¸ö²ÎÊı±íÊ¾½çÃæ²¼¾ÖµÄid  ±íÊ¾¸ÃÎÄ¼ş×÷ÎªÁĞ±íÏîµÄ×é¼ş
-        	// µÚËÄ¸ö²ÎÊı±íÊ¾¸ÃMap¶ÔÏóµÄÄÄĞ©key¶ÔÓ¦valueÀ´Éú³ÉÁĞ±íÏî
-        	 //µÚÎå¸ö²ÎÊı±íÊ¾À´Ìî³äµÄ×é¼ş Map¶ÔÏókey¶ÔÓ¦µÄ×ÊÔ´Ò»ÒÀ´ÎÌî³ä×é¼ş Ë³ĞòÓĞ¶ÔÓ¦¹ØÏµ
+                        R.id.imageview_behind_icon}) {//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½androidÓ¦ï¿½Ã³ï¿½ï¿½ï¿½Ó¿Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª
+        	// ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Map(String ,Object)ï¿½Ğ±ï¿½Ñ¡ï¿½ï¿½
+        	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½æ²¼ï¿½Öµï¿½id  ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Îªï¿½Ğ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        	// ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ©keyï¿½ï¿½Ó¦valueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½
+        	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Mapï¿½ï¿½ï¿½ï¿½keyï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô´Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ë³ï¿½ï¿½ï¿½Ğ¶ï¿½Ó¦ï¿½ï¿½Ïµ
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 // TODO Auto-generated method stub.
                 View view = super.getView(position, convertView, parent);
                 if (position == mTag) {
                     view.setBackgroundResource(R.drawable.back_behind_list);
-                    lvTitle.setTag(view);//ÏÔÊ¾Ñ¡ÖĞÁËposition == mTagÕâ¸öÌõ¼ş³ÉÁ¢µÄÄÇÒ»Ïî£¬×î¿ªÊ¼ºÃÏñÊÇÏÔÊ¾¡°ÉçÇø¾«Ñ¡¡±£¨Ê¹ËüºÍÆäËûÏîµÄ±³¾°ÑÕÉ«²»Í¬£©
+                    lvTitle.setTag(view);//ï¿½ï¿½Ê¾Ñ¡ï¿½ï¿½ï¿½ï¿½position == mTagï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½î£¬ï¿½î¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Í¬ï¿½ï¿½
                 } else {
                     view.setBackgroundColor(Color.TRANSPARENT);
                 }
@@ -255,8 +242,8 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
             }
         };
         lvTitle.setAdapter(lvAdapter);
-        lvTitle.setOnItemClickListener(new OnItemClickListener() {//OnItemClickListener ÊÇ¼àÌıListViewÖĞ×ÓÌõÄ¿µÄµã»÷ÊÂ¼ş
-            @Override                                             //½ø¶ø»ñÈ¡Ã¿Ò»Ò³µÄÄÚÈİ
+        lvTitle.setOnItemClickListener(new OnItemClickListener() {//OnItemClickListener ï¿½Ç¼ï¿½ï¿½ï¿½ListViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½ï¿½ï¿½Â¼ï¿½
+            @Override                                             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ã¿Ò»Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 NavigationModel navModel = navs.get(position);
@@ -275,7 +262,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
                 
                 
                 
-                //ÏìÓ¦slidingmeunÖĞ²Ëµ¥µÄµã»÷ÊÂ¼ş
+               
                 switch (position) {
                     case Constants.Slidingmeun.TMLS_SLDM_HOME:
                         //imgQuery.setVisibility(View.GONE);
@@ -356,15 +343,13 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         return list;
     }
 
-    // [end]
-
-    // [start]¼Ì³Ğ·½·¨
+ 
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.Linear_above_toHome://¼àÌıabove_titleÖĞµÄ¿Ø¼ş
-                showMenu();//µ÷³ö²Ëµ¥À¸
+            case R.id.Linear_above_toHome:
+                showMenu();
                 break;
 
           
@@ -373,9 +358,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 
     }
 
-    /**
-     * Á¬Ğø°´Á½´Î·µ»Ø¼ü¾ÍÍË³ö
-     */
+    
     private int keyBackClickCount = 0;
 
     @Override
@@ -478,14 +461,8 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         super.onSaveInstanceState(outState);
     }
 
-    // [end]
-
-    /**
-     * ¼ÓÔØ·ÖÀàlistµÄtask
-     *
-     * @author wangxin
-     */
-    public class MyTask extends AsyncTask<BaseDao, String, Map<String, Object>> {//ÊµÏÖÒì²½ÈÎÎñ»úÖÆ
+    
+    public class MyTask extends AsyncTask<BaseDao, String, Map<String, Object>> {//Êµï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         private boolean mUseCache;
 
@@ -499,7 +476,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         }
 
         @Override
-        protected void onPreExecute() {//ÔÚexecute(Params... params)±»µ÷ÓÃºóÁ¢¼´Ö´ĞĞ£¬Ò»°ãÓÃÀ´ÔÚÖ´ĞĞºóÌ¨ÈÎÎñÇ°¶ÔUI×öÒ»Ğ©±ê¼Ç¡£
+        protected void onPreExecute() {//ï¿½ï¿½execute(Params... params)ï¿½ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğºï¿½Ì¨ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½UIï¿½ï¿½Ò»Ğ©ï¿½ï¿½Ç¡ï¿½
             // TODO Auto-generated method stub
         	System.out.println(">>>>>>>>>>>>..............2");
             imgLeft.setVisibility(View.GONE);
@@ -514,15 +491,15 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
         }
 
         @Override
-        protected Map<String, Object> doInBackground(BaseDao... params) {//ÔÚonPreExecute()Íê³ÉºóÁ¢¼´Ö´ĞĞ£¬
-        	//ÓÃÓÚÖ´ĞĞ½ÏÎª·ÑÊ±µÄ²Ù×÷£¬´Ë·½·¨½«½ÓÊÕÊäÈë²ÎÊıºÍ·µ»Ø¼ÆËã½á¹û¡£
-        	//ÔÚÖ´ĞĞ¹ı³ÌÖĞ¿ÉÒÔµ÷ÓÃpublishProgress(Progress... values)À´¸üĞÂ½ø¶ÈĞÅÏ¢¡£
+        protected Map<String, Object> doInBackground(BaseDao... params) {//ï¿½ï¿½onPreExecute()ï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ£ï¿½
+        	//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ½ï¿½Îªï¿½ï¿½Ê±ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        	//ï¿½ï¿½Ö´ï¿½Ğ¹ï¿½ï¿½ï¿½ï¿½Ğ¿ï¿½ï¿½Ôµï¿½ï¿½ï¿½publishProgress(Progress... values)ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
         	System.out.println(">>>>>>>>>>>>..............3");
             BaseDao dao = params[0];
             List<CategorysEntity> categorys;
             Map<String, Object> map = new HashMap<String, Object>();
            /*
-            * ¸ù¾İÓÃ»§µã»÷´«À´µÄdaoµÄÀàĞÍÈ¥´Ó»ñÈ¡Êı¾İ 
+            * ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½daoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½Ó»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ 
             */
 
             if (dao instanceof HomeDao) {
@@ -555,29 +532,29 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 		}
         
 		@Override
-		protected void onPostExecute(Map<String, Object> result) {// µ±ºóÌ¨²Ù×÷½áÊøÊ±£¬´Ë·½·¨½«»á±»µ÷ÓÃ£¬
-			// ¼ÆËã½á¹û½«×öÎª²ÎÊı´«µİµ½´Ë·½·¨ÖĞ£¬Ö±½Ó½«½á¹ûÏÔÊ¾µ½UI×é¼şÉÏ¡£
+		protected void onPostExecute(Map<String, Object> result) {// ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á±»ï¿½ï¿½ï¿½Ã£ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½Ö±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½Ï¡ï¿½
 			// TODO Auto-generated method stub
 			System.out.println(">>>>>>>>>>>>..............4");
 			super.onPostExecute(result);
 			isShowPopupWindows = true;
 			mStudyBasePageAdapter.Clear();
 			mViewPager.removeAllViews();
-			if (!result.isEmpty()) {// »ñµÃµÄ×ÊÔ´ÔÚÕâ¶ùºÍpager½øĞĞÆ¥Åä
+			if (!result.isEmpty()) {// ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pagerï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
 				mStudyBasePageAdapter.addFragment((List) result.get("tabs"),
 						(BaseResponseData) result.get("Entity"));
 				imgRight.setVisibility(View.VISIBLE);
-				// loadLayout.setVisibility(View.GONE);//View.GONEÒş²Ø
-				// ²¢ÇÒ²»Õ¼ÓÃ½çÃæ¿Õ¼ä£º²»Õ¼ÓÃÒ³Ãæ¿Õ¼ä¾ÍÊÇËµÔÚÒ³ÃæÉÏ²»¸øËüÁôÎ»ÖÃ
-				// loadFaillayout.setVisibility(View.GONE);//VIew.InVisible¿Ø¼şÒş²Ø
-				// Õ¼ÓÃ½çÃæ¿Õ¼ä
+				// loadLayout.setVisibility(View.GONE);//View.GONEï¿½ï¿½ï¿½ï¿½
+				// ï¿½ï¿½ï¿½Ò²ï¿½Õ¼ï¿½Ã½ï¿½ï¿½ï¿½Õ¼ä£ºï¿½ï¿½Õ¼ï¿½ï¿½Ò³ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+				// loadFaillayout.setVisibility(View.GONE);//VIew.InVisibleï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½
+				// Õ¼ï¿½Ã½ï¿½ï¿½ï¿½Õ¼ï¿½
 			} else {
 				mStudyBasePageAdapter.addNullFragment();
 
 			}
-			mViewPager.setVisibility(View.VISIBLE);// ÏÔÊ¾Õâ¸öpager
-			mStudyBasePageAdapter.notifyDataSetChanged();// notifyDataSetChanged·½·¨Í¨¹ıÒ»¸öÍâ²¿µÄ·½·¨¿ØÖÆ
-			// Èç¹ûÊÊÅäÆ÷µÄÄÚÈİ¸Ä±äÊ±ĞèÒªÇ¿ÖÆµ÷ÓÃgetViewÀ´Ë¢ĞÂÃ¿¸öItemµÄÄÚÈİ,¿ÉÒÔÊµÏÖ¶¯Ì¬µÄË¢ĞÂÁĞ±íµÄ¹¦ÄÜ¡£
+			mViewPager.setVisibility(View.VISIBLE);// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½pager
+			mStudyBasePageAdapter.notifyDataSetChanged();// notifyDataSetChangedï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ò»ï¿½ï¿½ï¿½â²¿ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¸Ä±ï¿½Ê±ï¿½ï¿½ÒªÇ¿ï¿½Æµï¿½ï¿½ï¿½getViewï¿½ï¿½Ë¢ï¿½ï¿½Ã¿ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö¶ï¿½Ì¬ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½Ğ±ï¿½Ä¹ï¿½ï¿½Ü¡ï¿½
 			mViewPager.setCurrentItem(0);
 			mIndicator.notifyDataSetChanged();
 
@@ -585,7 +562,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
 	}
 
 	/**
-	 * viewPagerÇĞ»»Ò³Ãæ
+	 * viewPagerï¿½Ğ»ï¿½Ò³ï¿½ï¿½
 	 *
 	 * @author mingxv
 	 */

@@ -97,10 +97,10 @@ public class TmlStoreShowSkus extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				startSkuDetialsActivity(position);
 				TextView tv = (TextView) view
-						.findViewById(R.id.tmlstore_listview_item_tv);
-				Log.d(Tag, tv.getText().toString());
+						.findViewById(R.id.tmlstore_show_sku_item_objectid);
+				Log.d(Tag, "点击了第"+ position +"sku");
+				startSkuDetialsActivity(position,tv.getText().toString());
 			}
 
 		});
@@ -112,10 +112,10 @@ public class TmlStoreShowSkus extends Fragment {
 	 * @param position
 	 *            传递点击的 item 序号，sku 详情页面便可以根据序号来获取要显示的产品
 	 */
-	private void startSkuDetialsActivity(int position) {
+	private void startSkuDetialsActivity(int position,String id) {
 
 		startActivity(new Intent(mactivity, TmlStoreSkuDetialsActivity.class)
-				.putExtra("index", position));
+				.putExtra("index", position).putExtra("id", id));
 	}
 
 	Handler myHandler = new Handler() {

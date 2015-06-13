@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.util.Log;
 
@@ -12,6 +13,8 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVQuery.CachePolicy;
+import com.avos.avoscloud.AVRelation;
+import com.yitong.avsubobject.PackingSpecification;
 import com.yitong.avsubobject.Sku;
 
 /**
@@ -27,7 +30,7 @@ public class TmlStoreSkusDao {
 	public TmlStoreSkusDao() {
 	}
 
-	AVQuery<Sku> query = AVObject.getQuery(Sku.class);
+	
 
 	/**
 	 * 
@@ -37,6 +40,7 @@ public class TmlStoreSkusDao {
 	 */
 	public ArrayList<Sku> getAllSkus() {
 		
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		ArrayList<Sku> skus = new ArrayList<Sku>();
 		
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
@@ -64,6 +68,7 @@ public class TmlStoreSkusDao {
 	 */
 	public List<String> getAllSkuNames() {
 
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<String> list = new ArrayList<String>();
 
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
@@ -93,6 +98,7 @@ public class TmlStoreSkusDao {
 	 */
 	public List<byte[]> getAllSkuImage() {
 
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<byte[]> list = new ArrayList<byte[]>();
 
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
@@ -113,8 +119,15 @@ public class TmlStoreSkusDao {
 	}
 	
 	
+	/**
+	 * 
+	 * 获取所有 sku 的 ObjectId
+	 * 
+	 * @return
+	 */
 	public List<String> getAllObjectId(){
 		
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<String> ids = new ArrayList<String>();
 		
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
@@ -130,6 +143,91 @@ public class TmlStoreSkusDao {
 		}
 		
 		return ids;
+	}
+	
+	/**
+	 * 根据 objectId 获取 sku
+	 * 
+	 * @param objectId
+	 * @return
+	 */
+	public Sku getSkuById(String objectId){
+		
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
+		Sku sku = null;
+		
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		try {
+			sku = query.get(objectId);
+		} catch (AVException e) {
+			Log.d(Tag, "根据 objectId 获取 sku 失败");
+		}
+		return sku;
+	}
+	
+	
+	/**
+	 * 根据 id 获取特定 sku 的全部包装类型
+	 * @param id
+	 * @return
+	 */
+	public List<PackingSpecification> getAllpackingSpecificationById(String id){
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
+		Sku sku;
+		List<PackingSpecification> list = new ArrayList<PackingSpecification>();
+		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.addDescendingOrder("createdAt");
+		
+		try {
+			sku = query.get(id);
+			AVRelation<PackingSpecification> relation = sku.getPackingSpecification();
+			List<PackingSpecification> packs = relation.getQuery().find();
+			Log.d(Tag, "有 " + packs.size() + " 种包装");
+			for (PackingSpecification packingSpecification : packs) {
+				list.add(packingSpecification);
+			}
+		} catch (AVException e) {
+			Log.d(Tag, "根据 id 获取 sku 出错");
+		}
+		
+		return list;
+	}
+	
+	
+	/**
+	 * 根据 id 获取图片
+	 * @param id
+	 * @return
+	 */
+	public byte[] getImageById(String id){
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
+		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		Sku sku = null;
+		byte [] image = null;
+		
+		try {
+			sku = query.get(id);
+			image = sku.getImage().getData();
+		} catch (AVException e) {
+			Log.d(Tag, "根据 id 获取 sku 出错");
+		}
+		return image;
+		
+	}
+	
+	public String getNameById(String id){
+		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
+		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		Sku sku  = null;
+		String name = null;
+		
+		try {
+			sku = query.get(id);
+			name = sku.getName();
+		} catch (AVException e) {
+			Log.d(Tag, "根据 id 获取 sku 出错");
+		}
+		return name;
 	}
 
 }

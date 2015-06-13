@@ -49,10 +49,10 @@ public class Sku extends AVObject {
 	
 	// 包装类型
 	public final String PACKINGSPECIFICATION = "packingSpecification";
-	public AVRelation<AVObject> getPackingSpecification(){
+	public AVRelation<PackingSpecification> getPackingSpecification(){
 		return getRelation(PACKINGSPECIFICATION);
 	}
-	public void setPackingSpecification(AVRelation<AVObject> relation){
+	public void setPackingSpecification(AVRelation<PackingSpecification> relation){
 		put(PACKINGSPECIFICATION, relation);
 	}
 	
