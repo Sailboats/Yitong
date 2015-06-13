@@ -1,5 +1,6 @@
 package com.yitong.view;
 
+import java.util.Date;
 import java.util.List;
 
 import com.avos.avoscloud.AVException;
@@ -9,13 +10,17 @@ import com.yitong.biz.TmlStorePacksDao;
 import com.yitong.biz.TmlStoreSkusDao;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,15 +33,14 @@ import android.widget.TextView;
 public class TmlStoreRepertoryCheck extends Activity {
 
 	private String Tag = "TmlStoreRepertoryCheck";
+	
+	private TextView tv_date;
 
 	private List<PackingSpecification> packs = null;
-
 	private byte[] image;
-
 	private String name;
 
 	private ImageView iv_sku;
-
 	private TextView tv_name;
 
 	private List<byte[]> packsImages = null;
@@ -56,7 +60,8 @@ public class TmlStoreRepertoryCheck extends Activity {
 		Log.d(Tag, "id === " + getIntent().getStringExtra("id"));
 		iv_sku = (ImageView) findViewById(R.id.iv_name);
 		tv_name = (TextView) findViewById(R.id.tv_name);
-
+		tv_date = (TextView) findViewById(R.id.tv_check_date);
+		
 		new Thread(new Runnable() {
 
 			@Override
@@ -79,6 +84,33 @@ public class TmlStoreRepertoryCheck extends Activity {
 
 			}
 		}).start();
+		
+		findViewById(R.id.check_date).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Date date = new Date();
+				DatePickerDialog dialog = new DatePickerDialog(TmlStoreRepertoryCheck.this, new OnDateSetListener() {
+					
+					@Override
+					public void onDateSet(DatePicker view, int year, int monthOfYear,
+							int dayOfMonth) {
+						// TODO Auto-generated method stub
+						StringBuffer sb = new StringBuffer();
+						sb .append(year)
+						.append("-")
+						.append(monthOfYear + 1)
+						.append("-")
+						.append(dayOfMonth);
+						
+						tv_date.setText(sb.toString());
+					}
+				}, date.getYear(), date.getMonth(), date.getDay());
+				dialog.setTitle("请选择盘点日期");
+				dialog.show();
+			}
+		});
+		
 
 	}
 
@@ -92,6 +124,8 @@ public class TmlStoreRepertoryCheck extends Activity {
 			iv_sku.setImageBitmap(BitmapFactory.decodeByteArray(image, 0,
 					image.length));
 			tv_name.setText(name);
+			
+			// 设置显示包装类型
 			setUpPacks(packs);
 
 		}
@@ -139,6 +173,29 @@ public class TmlStoreRepertoryCheck extends Activity {
 					R.id.iv_single_pic);
 			iv2.setImageBitmap(BitmapFactory.decodeByteArray(
 					packsImages.get(1), 0, packsImages.get(1).length));
+			break;
+
+		case 3:
+			ImageView iv3 = (ImageView) findViewById(
+					R.id.tmlstore_repertory_check_sengle_layout).findViewById(
+					R.id.iv_single_pic);
+			iv3.setImageBitmap(BitmapFactory.decodeByteArray(
+					packsImages.get(0), 0, packsImages.get(0).length));
+			
+			ImageView iv4 = (ImageView) findViewById(
+					R.id.tmlstore_repertory_check_six_layout).findViewById(
+							R.id.iv_single_pic);
+			iv4.setImageBitmap(BitmapFactory.decodeByteArray(
+					packsImages.get(1), 0, packsImages.get(1).length));
+			
+			ImageView iv5 = (ImageView) findViewById(
+					R.id.tmlstore_repertory_check_box_layout).findViewById(
+							R.id.iv_single_pic);
+			iv5.setImageBitmap(BitmapFactory.decodeByteArray(
+					packsImages.get(2), 0, packsImages.get(2).length));
+			
+			
+
 			break;
 
 		default:

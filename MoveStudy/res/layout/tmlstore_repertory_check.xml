@@ -6,7 +6,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/tmlstore_repertory_cherck_btn_commit"
         android:background="@color/normal_layout_background" >
 

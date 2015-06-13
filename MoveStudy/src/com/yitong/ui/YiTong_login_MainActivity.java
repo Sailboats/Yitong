@@ -3,13 +3,19 @@ package com.yitong.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.example.movestudy.R;
+import com.yitong.avsubobject.MyUser;
 
 /**
  * 
@@ -55,35 +61,64 @@ public class YiTong_login_MainActivity extends Activity implements
 	// ʵ�ֵ���¼�
 	@Override
 	public void onClick(View v) {
-		
+
 		Intent intent = new Intent();
 		switch (v.getId()) {
-		
+
 		case R.id.yitong_btn_login:
-            String tel = mEdtTelphone.getText().toString();
-            String password = mEdtPwd.getText().toString();
-			
+			final String tel = mEdtTelphone.getText().toString().trim();
+			final String password = mEdtPwd.getText().toString().trim();
+			Log.d(null, "tel = " + tel + " password = " + password);
+			new Thread() {
+
+				@Override
+				public void run() {
+					super.run();
+
+					MyUser myUser = null;
+
+					try {
+
+						myUser = AVUser.logIn(tel, password, MyUser.class);
+
+						if (null != myUser) {
+							startActivity(new Intent(
+									YiTong_login_MainActivity.this,
+									LoginActivity.class));
+							finish();
+						} else {
+							Toast.makeText(YiTong_login_MainActivity.this,
+									"登录失败", Toast.LENGTH_SHORT).show();
+						}
+
+					} catch (AVException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+
+			}.start();
+
 			break;
 
 		case R.id.yitong_tv_forgetpwd:
-			intent.setClass(this,YiTong_FindPwd_MainActivity.class);
+			intent.setClass(this, YiTong_FindPwd_MainActivity.class);
 			this.startActivity(intent);
-
 			break;
 
 		case R.id.yitong_tv_register:
 
-			
-			intent.setClass(this,YiTong_regist_MainActivity.class);
+			intent.setClass(this, YiTong_regist_MainActivity.class);
 			this.startActivity(intent);
 			break;
 
 		case R.id.yitong_brand_distributor:
-			intent.setClass(this,YiTong_FindPwd_MainActivity.class);
+			intent.setClass(this, YiTong_FindPwd_MainActivity.class);
 			this.startActivity(intent);
 			break;
 
 		}
-		
+
 	}
 }
