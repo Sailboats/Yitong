@@ -9,7 +9,6 @@ import com.yitong.avsubobject.Sku;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,7 @@ import android.widget.TextView;
 
 /**
  * 
- * 终端店 sku 展示页面 listview 适配器
- * 
+ * 缁堢搴�sku 灞曠ず椤甸潰 listview 閫傞厤鍣� * 
  * * @author caoligai
  */
 public class TmlStoreSkusListAdapter extends BaseAdapter {

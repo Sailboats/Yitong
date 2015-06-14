@@ -22,10 +22,10 @@ public class Dis_TmlmDao implements BaseDao{
 		this.dis_tmlmRespose = dis_tmlmResponse;
 	}
 
-//	public Dis_TmlmDao(Activity mActivity){
-//		super(mActivity);
-//		
-//	}
+	public Dis_TmlmDao(Activity mActivity){
+	//	super(mActivity);
+		
+	}
 	//获取数据
 	public Dis_tmlmResponseEntity mapperJson(boolean useCache) {
 		// TODO Auto-generated method stub

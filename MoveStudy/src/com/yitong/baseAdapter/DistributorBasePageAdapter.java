@@ -54,6 +54,7 @@ public class DistributorBasePageAdapter extends FragmentStatePagerAdapter {
 		
 		}
 		else if (baseResponseData instanceof Dis_tmlmResponseEntity) {
+			System.out.println(">>>>>>>");
 			addTab(new Dis_TmlmFragment(mActivity, this));
 		}
 		

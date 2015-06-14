@@ -9,7 +9,7 @@ import com.avos.avoscloud.AVRelation;
 
 /**
  * 
- * 服务器文章表子类
+ * 鏈嶅姟鍣ㄦ枃绔犺〃瀛愮被
  * 
  * * @author caoligai
  */
@@ -17,7 +17,7 @@ import com.avos.avoscloud.AVRelation;
 public class Article extends AVObject {
 
 	
-	// 标题
+	// 鏍囬
 	public final String TITLE = "title";
 	public String getTitle(){
 		return getString(TITLE);
@@ -27,7 +27,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 简述
+	// 绠�堪
 	public final String SUMMARY = "summary";
 	public String getSummary(){
 		return getString(SUMMARY);
@@ -37,7 +37,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 发表时间
+	// 鍙戣〃鏃堕棿
 	public final String DATE = "date";
 	public Date getDate(){
 		return getDate(DATE);
@@ -47,7 +47,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 来源
+	// 鏉ユ簮
 	public final String SOURCE = "source";
 	public String getSource(){
 		return getString(SOURCE);
@@ -58,7 +58,7 @@ public class Article extends AVObject {
 	
 	
 	
-	// 广告位图片
+	// 骞垮憡浣嶅浘鐗�	
 	public final String HEADERIMAGEFILE = "headerImageFile";
 	public AVFile getHeaderImageFile(){
 		return getAVFile(HEADERIMAGEFILE);
@@ -68,7 +68,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 列表位图片
+	// 鍒楄〃浣嶅浘鐗�	
 	public final String LISTIMAGEFILE = "listImageFile";
 	public AVFile getListImageFile(){
 		return getAVFile(LISTIMAGEFILE);
@@ -78,7 +78,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 正文图片集
+	// 姝ｆ枃鍥剧墖闆�	
 	public final String IMAGETEXT = "imagetext";
 	public AVRelation<AVObject> getImagetext(){
 		return getRelation(IMAGETEXT);
@@ -88,7 +88,7 @@ public class Article extends AVObject {
 	}
 	
 	
-	// 标签
+	// 鏍囩
 	public final String TAG = "tag";
 	public String getTag(){
 		return getString(TAG);

@@ -1,7 +1,17 @@
 eclipse.preferences.version=1
+encoding//src/com/yitong/avsubobject/Article.java=UTF-8
+encoding//src/com/yitong/avsubobject/InvestigateEveryday.java=UTF-8
+encoding//src/com/yitong/avsubobject/MyUser.java=UTF-8
+encoding//src/com/yitong/avsubobject/Purchases.java=UTF-8
+encoding//src/com/yitong/avsubobject/Sku.java=UTF-8
+encoding//src/com/yitong/avsubobject/Stock.java=UTF-8
+encoding//src/com/yitong/baseAdapter/TmlStoreSkusListAdapter.java=UTF-8
+encoding//src/com/yitong/biz/HomeDao.java=UTF-8
 encoding//src/com/yitong/biz/TmlStoreSkusDao.java=UTF-8
 encoding//src/com/yitong/ui/base/BaseActivity.java=UTF-8
 encoding//src/com/yitong/view/HomePageFragment.java=UTF-8
+encoding//src/com/yitong/view/TmlStoreGoodsInputActivity.java=UTF-8
+encoding//src/com/yitong/view/TmlStoreRepertoryCheck.java=UTF-8
 encoding//src/com/yitong/view/YiTongStatictiscYearFragment.java=UTF-8
 encoding//src/com/yitong/widget/CircleFlowIndicator.java=UTF-8
 encoding/<project>=GBK

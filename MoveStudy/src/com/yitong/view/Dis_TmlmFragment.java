@@ -1,9 +1,11 @@
 package com.yitong.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,9 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.movestudy.R;
+import com.yitong.entity.Dis_Tmls_ItemEntity;
 import com.yitong.widget.XListView;
 import com.yitong.widget.XListView.IXListViewListener;
 
@@ -31,16 +38,18 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 	//TmlsBasePageAdapter myAdapter;
 	
 	private XListView mListView;
-	private ArrayAdapter<String> mAdapter;
 	private ArrayList<String> items = new ArrayList<String>();
 	private Handler mHandler;
 	private int start = 0;
 	private static int refreshCnt = 0;
+	XlistAdapter myAdapter;
+	List<Dis_Tmls_ItemEntity> list;
 	  
 	
 	public Dis_TmlmFragment(Activity activity,FragmentStatePagerAdapter studyBasePageAdapter){
 		myActivity = activity;
 		//myAdapter = (TmlsBasePageAdapter) studyBasePageAdapter;
+		
 	
 		
 	
@@ -94,11 +103,14 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 			defaultsSpinner = (Spinner)view.findViewById(R.id.spinner_default);
 			defaultsSpinner.setBackgroundResource(R.drawable.spinner1);
 			
+			list = new ArrayList<Dis_Tmls_ItemEntity>();
 			geneItems();
 			mListView = (XListView)view.findViewById(R.id.Tmlm_xListView);
 			mListView.setPullLoadEnable(true);
-			mAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.list_item, items);
-			mListView.setAdapter(mAdapter);
+			
+			myAdapter = new XlistAdapter(list,myActivity);
+			
+			mListView.setAdapter(myAdapter);
 //			mListView.setPullLoadEnable(false);
 //			mListView.setPullRefreshEnable(false);
 			mListView.setXListViewListener(this);
@@ -109,9 +121,19 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 		}
 
 		private void geneItems() {
-			for (int i = 0; i != 20; ++i) {
-				items.add("refresh cnt " + (++start));
-			}
+			
+			Dis_Tmls_ItemEntity entity1 = new Dis_Tmls_ItemEntity();
+			entity1.setPctureurl(null);
+			entity1.setName("鲜又多超市");
+			entity1.setGrade(3);
+			entity1.setNeed("三日内需要补货");
+			list.add(entity1);
+			Dis_Tmls_ItemEntity entity2 = new Dis_Tmls_ItemEntity();
+			entity2.setPctureurl(null);
+			entity2.setName("音乐盒子");
+			entity2.setGrade(4);
+			entity2.setNeed("三日内需要补货");
+			list.add(entity2);
 		}
 		
 		private void onLoad() {
@@ -131,8 +153,21 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 					items.clear();
 					geneItems();
 					// mAdapter.notifyDataSetChanged();
-					mAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.list_item, items);
-					mListView.setAdapter(mAdapter);
+					
+					Dis_Tmls_ItemEntity entity11 = new Dis_Tmls_ItemEntity();
+					entity11.setPctureurl(null);
+					entity11.setName("鲜又多超市");
+					entity11.setGrade(3);
+					entity11.setNeed("三日内需要补货");
+					list.add(entity11);
+					Dis_Tmls_ItemEntity entity22 = new Dis_Tmls_ItemEntity();
+					entity22.setPctureurl(null);
+					entity22.setName("音乐盒子");
+					entity22.setGrade(4);
+					entity22.setNeed("三日内需要补货");
+					list.add(entity22);
+					XlistAdapter myAdapter = new XlistAdapter(list,myActivity);
+					mListView.setAdapter(myAdapter);
 					onLoad();
 				}
 			}, 2000);
@@ -147,10 +182,62 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 				@Override
 				public void run() {
 					geneItems();
-					mAdapter.notifyDataSetChanged();
+					myAdapter.notifyDataSetChanged();
 					onLoad();
 				}
 			}, 2000);
 		}
 		
+}
+
+class XlistAdapter extends BaseAdapter{
+
+	private LayoutInflater mInflater;
+	List<Dis_Tmls_ItemEntity> list;
+	
+	public XlistAdapter(List<Dis_Tmls_ItemEntity> list,Context context) {
+		// TODO Auto-generated method stub
+        this.list = list;
+        mInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int arg0) {
+		// TODO Auto-generated method stub
+		return arg0;
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+		// TODO Auto-generated method stub
+		return arg0;
+	}
+
+	@Override
+	public View getView(int arg0, View view, ViewGroup arg2) {
+		// TODO Auto-generated method stub
+		view = (View)mInflater.inflate(R.layout.dis_tmls_list_item, null);
+		ImageView tml_picture = (ImageView) view.findViewById(R.id.dis_tmlm_picture);
+		TextView tml_name = (TextView)view.findViewById(R.id.dis_tmlm_name);
+		TextView tml_grade = (TextView)view.findViewById(R.id.dis_tmlm_grade);
+		TextView tml_need = (TextView)view.findViewById(R.id.dis_tmlm_need);
+		RatingBar tml_ratingbarBar = (RatingBar)view.findViewById(R.id.dis_tmlm_ratingBar);
+		
+		tml_picture.setImageResource(R.drawable.dis_tmlm_picture);
+		tml_name.setText(list.get(arg0).getName());
+		String text = "店铺评级："+list.get(arg0).getGrade()+"星";
+		tml_grade.setText(text);
+		tml_ratingbarBar.setRating(list.get(arg0).getGrade());
+		tml_need.setText(list.get(arg0).getNeed());
+		
+		return view;
+	}
+	
+
 }

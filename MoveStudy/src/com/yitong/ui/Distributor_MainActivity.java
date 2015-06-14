@@ -191,7 +191,7 @@ public class Distributor_MainActivity extends BaseSlidingFragmentActivity
 	private void initClass() {
 		
 		 homeDao = new HomeDao(this);
-//		 dis_TmlmDao = new Dis_TmlmDao(this);
+		 dis_TmlmDao = new Dis_TmlmDao(this);
 		
 	}
 
