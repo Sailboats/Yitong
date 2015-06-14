@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="98dp"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/dis_tmlm_picture"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" />
+
+    <RelativeLayout
+        android:id="@+id/dis_tmlm_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/dis_tmlm_picture"
+        android:layout_centerVertical="true"
+         >
+
+        <TextView
+            android:id="@+id/dis_tmlm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout 
+            android:id="@+id/dis_tmlm_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/dis_tmlm_name"
+            >
+        <TextView
+            android:id="@+id/dis_tmlm_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
+
+        <RatingBar
+            android:id="@+id/dis_tmlm_ratingBar"
+            style="@style/wmtRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:numStars="5" ></RatingBar>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dis_tmlm_need"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dis_tmlm_linear"
+             />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/dis_tmlm_next"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/dis_tmlm_next" />
+
+</RelativeLayout>
