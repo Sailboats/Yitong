@@ -17,20 +17,20 @@ public class Purchases extends AVObject {
 	
 	// SKU
 	public final String SKU = "sku";
-	public AVObject getSku(){
+	public Sku getSku(){
 		return getAVObject(SKU);
 	}
-	public void setSku(AVObject sku){
+	public void setSku(Sku sku){
 		put(SKU, sku);
 	}
 	
 	
 	// 终端店
 	public final String STORE = "store";
-	public AVObject getStore(){
+	public TerminalStore getStore(){
 		return getAVObject(STORE);
 	}
-	public void setStore(AVObject store){
+	public void setStore(TerminalStore store){
 		put(STORE, store);
 	}
 	

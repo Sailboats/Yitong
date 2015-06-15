@@ -37,6 +37,7 @@
         android:layout_marginRight="5dp" >
 
         <TextView
+            android:id="@+id/unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -56,9 +57,10 @@
             android:layout_centerVertical="true" >
 
             <EditText
-                android:id="@+id/ev_single"
+                android:id="@+id/et_single"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="number" />
         </RelativeLayout>
 
         <RelativeLayout

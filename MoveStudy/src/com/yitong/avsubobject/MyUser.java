@@ -1,5 +1,6 @@
 package com.yitong.avsubobject;
 
+import com.alibaba.fastjson.annotation.JSONType;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVRelation;
@@ -11,6 +12,7 @@ import com.avos.avoscloud.AVUser;
  * 
  * * @author caoligai
  */
+@JSONType(ignores = "terminalStores")
 public class MyUser extends AVUser {
 
 	// 昵称
@@ -57,10 +59,10 @@ public class MyUser extends AVUser {
 	
 	// 管理终端店
 	public final String TERMINALSTORES = "terminalStores";
-	public AVRelation<AVObject> getTerminalStores(){
+	public AVRelation<TerminalStore> getTerminalStores(){
 		return getRelation(TERMINALSTORES);
 	}
-	public void setTerminalStores(AVRelation<AVObject> relation){
+	public void setTerminalStores(AVRelation<TerminalStore> relation){
 		put(TERMINALSTORES, relation);
 	}
 	

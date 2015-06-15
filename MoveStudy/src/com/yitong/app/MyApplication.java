@@ -15,6 +15,7 @@ import com.yitong.avsubobject.Brand;
 import com.yitong.avsubobject.ImageText;
 import com.yitong.avsubobject.InvestigateEveryday;
 import com.yitong.avsubobject.MarketingChannel;
+import com.yitong.avsubobject.MyUser;
 import com.yitong.avsubobject.PackingSpecification;
 import com.yitong.avsubobject.Promotion;
 import com.yitong.avsubobject.Purchases;
@@ -27,15 +28,17 @@ public class MyApplication extends Application {
 
 	private String Tag = "MyApplication";
 
+	private MyUser currentUser = null; // µ±Ç°ÓÃ»§
+
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
 
-		// è®¾ç½® Last-Modified æ¨¡å¼
+		// ÉèÖÃ Last-Modified Ä£Ê½
 		AVOSCloud.setLastModifyEnabled(true);
 
-		// æ³¨å†Œ LeanCloud å­ç±»(å¿…é¡»åœ¨åˆå§‹åŒ– SDKã€€ä¹‹å‰)
+		// ×¢²á LeanCloud ×ÓÀà(±ØĞëÔÚ³õÊ¼»¯ SDK¡¡Ö®Ç°)
 		AVObject.registerSubclass(Sku.class);
 		AVObject.registerSubclass(TerminalStore.class);
 		AVObject.registerSubclass(Brand.class);
@@ -49,18 +52,18 @@ public class MyApplication extends Application {
 		AVObject.registerSubclass(Article.class);
 		AVObject.registerSubclass(ImageText.class);
 
-		// åˆå§‹åŒ– LeanCloud SDK
+		// ³õÊ¼»¯ LeanCloud SDK
 		AVOSCloud.initialize(this,
 				"to0nyg7vtky1bna4ybrclwrm3hm0r94oqw45eiost7mqrbi5",
 				"kbq185r1thmzpbod54og7ml9vll7pzmb5yegd2jyyfcw3qaa");
 
 		Log.d(Tag, "AVOSCloud has been inited");
 
-		// NOTE:åœ¨å„ä¸ªç•Œé¢æ¸²æŸ“ ImageView çš„æ—¶å€™ä¸èƒ½ç›´æ¥é€šè¿‡ BitmapFactory.decodeByteArray()
-		// æ–¹æ³•æ¥ç›´æ¥è§£ç  AVFile å¯¹è±¡ï¼Œéœ€è¦åœ¨åå°çº¿ç¨‹ä¸­å°† AVFile å¯¹è±¡è½¬æ¢æˆä¸º byte[] æ•°ç»„ï¼ŒåŸå› å¯èƒ½æ˜¯å› ä¸º AVFile çš„
-		// getDate() æ–¹æ³•ä¸èƒ½ç›´æ¥åœ¨ UI çº¿ç¨‹ä¸­è°ƒç”¨
+		// NOTE:ÔÚ¸÷¸ö½çÃæäÖÈ¾ ImageView µÄÊ±ºò²»ÄÜÖ±½ÓÍ¨¹ı BitmapFactory.decodeByteArray()
+		// ·½·¨À´Ö±½Ó½âÂë AVFile ¶ÔÏó£¬ĞèÒªÔÚºóÌ¨Ïß³ÌÖĞ½« AVFile ¶ÔÏó×ª»»³ÉÎª byte[] Êı×é£¬Ô­Òò¿ÉÄÜÊÇÒòÎª AVFile µÄ
+		// getDate() ·½·¨²»ÄÜÖ±½ÓÔÚ UI Ïß³ÌÖĞµ÷ÓÃ
 
-		// æµ‹è¯•ä»£ç 
+		// ²âÊÔ´úÂë
 		/*
 		 * new Thread(){
 		 * 
@@ -75,6 +78,14 @@ public class MyApplication extends Application {
 		 * }.start();
 		 */
 
+	}
+
+	public MyUser getCurrentUser() {
+			return currentUser;
+	}
+
+	public void setCurrentUser(MyUser currentUser) {
+		this.currentUser = currentUser;
 	}
 
 }

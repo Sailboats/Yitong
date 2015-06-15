@@ -15,11 +15,12 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.example.movestudy.R;
+import com.yitong.app.MyApplication;
 import com.yitong.avsubobject.MyUser;
 
 /**
  * 
- * author qcj ��½activity
+ * author qcj 锟斤拷陆activity
  * 
  * */
 public class YiTong_login_MainActivity extends Activity implements
@@ -40,7 +41,7 @@ public class YiTong_login_MainActivity extends Activity implements
 		setListener();
 	}
 
-	// ��ʼ�������ռ�
+	// 锟斤拷始锟斤拷锟斤拷锟斤拷锟秸硷拷
 	private void initView() {
 		mEdtTelphone = (EditText) findViewById(R.id.yitong_edt_telphone);
 		mEdtPwd = (EditText) findViewById(R.id.yitong_edt_pwd);
@@ -50,7 +51,7 @@ public class YiTong_login_MainActivity extends Activity implements
 		mTvBrand_Dis = (TextView) findViewById(R.id.yitong_brand_distributor);
 	}
 
-	// Ϊ������ť�󶨼����¼�
+	// 为锟斤拷锟斤拷锟斤拷钮锟襟定硷拷锟斤拷锟铰硷拷
 	private void setListener() {
 		mBtnLogin.setOnClickListener(this);
 		mTvForgetPwd.setOnClickListener(this);
@@ -58,7 +59,7 @@ public class YiTong_login_MainActivity extends Activity implements
 		mTvBrand_Dis.setOnClickListener(this);
 	}
 
-	// ʵ�ֵ���¼�
+	// 实锟街碉拷锟斤拷录锟�
 	@Override
 	public void onClick(View v) {
 
@@ -79,8 +80,10 @@ public class YiTong_login_MainActivity extends Activity implements
 
 					try {
 
-						myUser = AVUser.logIn(tel, password, MyUser.class);
-
+						myUser = AVUser.logIn(tel, password,MyUser.class);
+						Log.d(null, "昵称: " + myUser.getNickName());
+						MyApplication app = (MyApplication) getApplication();
+						app.setCurrentUser(myUser);
 						if (null != myUser) {
 							startActivity(new Intent(
 									YiTong_login_MainActivity.this,
