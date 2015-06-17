@@ -10,6 +10,7 @@ import com.example.movestudy.R;
 import com.yitong.avsubobject.Sku;
 import com.yitong.baseAdapter.TmlStoreSkusListAdapter;
 import com.yitong.biz.TmlStoreSkusDao;
+import com.yitong.widget.CircleChart02View;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -53,6 +54,8 @@ public class TmlStoreShowSkus extends Fragment {
 	TmlStoreSkusListAdapter adapter;
 
 	List<String> ids;
+	
+	CircleChart02View chart = null;
 
 	public TmlStoreShowSkus(Activity mactivity,
 			FragmentStatePagerAdapter adapter) {
@@ -74,6 +77,9 @@ public class TmlStoreShowSkus extends Fragment {
 
 	private void initView(View view) {
 
+		
+		
+		
 		listview = (ListView) view.findViewById(R.id.lv_sku);
 
 		new Thread(new Runnable() {

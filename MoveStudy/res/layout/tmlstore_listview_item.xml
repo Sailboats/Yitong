@@ -23,12 +23,34 @@
 
     <ImageView
         android:id="@+id/tmlstore_listview_item_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="25dp"
         android:src="@drawable/yitong_login_right" />
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/tmlstore_listview_item_arrow" >
+
+        <com.yitong.widget.CircleChart02View
+            android:id="@+id/circle_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/circle_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:text="库存率"
+            android:textColor="@color/normal_textcolor1" />
+    </RelativeLayout>
 
     <!-- 这个 TextView 在显示的时候设置不可见，其作用是用来记录 sku 的服务器 objectId,这样的点击后跳转的时候将 objectId 传递过去 -->
 

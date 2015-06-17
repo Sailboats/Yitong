@@ -6,6 +6,7 @@ import java.util.List;
 import com.avos.avoscloud.AVException;
 import com.example.movestudy.R;
 import com.yitong.avsubobject.Sku;
+import com.yitong.widget.CircleChart02View;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -19,11 +20,13 @@ import android.widget.TextView;
 
 /**
  * 
- * 缁堢搴�sku 灞曠ず椤甸潰 listview 閫傞厤鍣� * 
+ * 终端店库存盘点/进货录入页面适配器 
  * * @author caoligai
  */
 public class TmlStoreSkusListAdapter extends BaseAdapter {
 
+	private static int i = 0;
+	
 	private String Tag = "TmlStoreSkusListAdapter";
 
 	Context context;
@@ -89,6 +92,7 @@ public class TmlStoreSkusListAdapter extends BaseAdapter {
 					.findViewById(R.id.tmlstore_listview_item_tv);
 			holder.objectId = (TextView) convertView
 					.findViewById(R.id.tmlstore_show_sku_item_objectid);
+			holder.chart = (CircleChart02View) convertView.findViewById(R.id.circle_view);
 
 			convertView.setTag(holder);
 
@@ -102,6 +106,16 @@ public class TmlStoreSkusListAdapter extends BaseAdapter {
 				images.get(position), 0, images.get(position).length));
 		holder.textview.setText(names.get(position));
 		holder.objectId.setText(objectIds.get(position));
+		
+		if (i++/3 == 0) {
+			holder.chart.setPercentage(10);
+		}else if (i++/3 == 1) {
+			holder.chart.setPercentage(50);
+		}else if(i++/3 == 2){
+			holder.chart.setPercentage(90);
+		}
+		holder.chart.chartRender();
+		holder.chart.invalidate();
 
 		return convertView;
 	}
@@ -114,6 +128,7 @@ public class TmlStoreSkusListAdapter extends BaseAdapter {
 
 		public TextView objectId;
 
+		public CircleChart02View chart;
 	}
 
 }
