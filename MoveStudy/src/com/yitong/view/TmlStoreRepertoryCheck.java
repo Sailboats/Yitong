@@ -1,12 +1,9 @@
 package com.yitong.view;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.avos.avoscloud.AVException;
 import com.example.movestudy.R;
 import com.yitong.app.MyApplication;
 import com.yitong.avsubobject.PackingSpecification;
@@ -121,7 +118,6 @@ public class TmlStoreRepertoryCheck extends Activity {
 							@Override
 							public void onDateSet(DatePicker view, int year,
 									int monthOfYear, int dayOfMonth) {
-								// TODO Auto-generated method stub
 								StringBuffer sb = new StringBuffer();
 								sb.append(year).append("-")
 										.append(monthOfYear + 1).append("-")

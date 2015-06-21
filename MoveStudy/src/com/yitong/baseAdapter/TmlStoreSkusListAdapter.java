@@ -10,6 +10,7 @@ import com.yitong.widget.CircleChart02View;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.renderscript.Double2;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,6 @@ import android.widget.TextView;
  */
 public class TmlStoreSkusListAdapter extends BaseAdapter {
 
-	private static int i = 0;
-	
 	private String Tag = "TmlStoreSkusListAdapter";
 
 	Context context;
@@ -107,13 +106,7 @@ public class TmlStoreSkusListAdapter extends BaseAdapter {
 		holder.textview.setText(names.get(position));
 		holder.objectId.setText(objectIds.get(position));
 		
-		if (i++/3 == 0) {
-			holder.chart.setPercentage(10);
-		}else if (i++/3 == 1) {
-			holder.chart.setPercentage(50);
-		}else if(i++/3 == 2){
-			holder.chart.setPercentage(90);
-		}
+		holder.chart.setPercentage((int)(Math.random() * 100));
 		holder.chart.chartRender();
 		holder.chart.invalidate();
 

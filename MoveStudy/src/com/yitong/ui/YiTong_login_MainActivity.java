@@ -80,7 +80,11 @@ public class YiTong_login_MainActivity extends Activity implements
 
 					try {
 
-						myUser = AVUser.logIn(tel, password,MyUser.class);
+//						myUser = AVUser.logIn(tel, password,MyUser.class);
+						
+						//测试代码
+						myUser = AVUser.logIn("18824195991", "caoligai", MyUser.class);
+						
 						Log.d(null, "昵称: " + myUser.getNickName());
 						MyApplication app = (MyApplication) getApplication();
 						app.setCurrentUser(myUser);

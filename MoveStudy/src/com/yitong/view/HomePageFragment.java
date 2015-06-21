@@ -111,7 +111,7 @@ public class HomePageFragment extends Fragment {
 		viewflow.startAutoFlowTimer();
 
 		// 初始化新闻
-		int[] tvid = { R.id.news_item1, R.id.news_item2, R.id.news_item3,
+		/*int[] tvid = { R.id.news_item1, R.id.news_item2, R.id.news_item3,
 				R.id.news_item4, R.id.news_item5 };
 		List<String> content = new ArrayList<String>();
 		content.add("您的四月份销售分析报告已生成，点击查看  [2015/4/22]");
@@ -181,7 +181,7 @@ public class HomePageFragment extends Fragment {
 		
 		TableRow row2 = new TableRow(getActivity());
 		row2.addView(repertoryLayout);
-		table.addView(row2);
+		table.addView(row2);*/
 		
 		return view;
 	}

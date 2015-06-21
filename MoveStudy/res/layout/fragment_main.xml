@@ -32,11 +32,18 @@
                 android:background="#7f808080"
                 android:padding="10dip" />
         </RelativeLayout>
+        <View 
+            android:layout_height="0.5dp"
+            android:layout_width="match_parent"
+            />
 
-        <include layout="@layout/top_border" />
+        <!-- <include layout="@layout/top_border" /> -->
+
 
         <!-- LOGO -->
 
+
+        <!--
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -49,7 +56,9 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo" />
         </RelativeLayout>
+        -->
 
+        <!--
         <include layout="@layout/top_border" />
 
         <TextView
@@ -60,7 +69,7 @@
             android:text="新闻动态"
             android:textStyle="bold" />
 
-        <!-- 新闻 -->
+        新闻
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,6 +117,8 @@
             android:padding="10dp"
             android:stretchColumns="0" >
         </TableLayout>
+        -->
+
     </LinearLayout>
 
 </ScrollView>

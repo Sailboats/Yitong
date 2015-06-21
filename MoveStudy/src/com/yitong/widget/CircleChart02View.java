@@ -125,9 +125,7 @@ public class CircleChart02View extends GraphicalView {
 //			mDataInfo = "压力山大";
 			color = Color.rgb(0, 255, 0);
 		}
-		PieData data = new PieData(Integer.toString(per)+"%",per,color);
-		data.setCustLabelStyle(XEnum.SliceLabelStyle.INSIDE, Color.BLACK);
-		mlPieData.add(data);
+		mlPieData.add(new PieData(Integer.toString(per)+"%",per,color));
 			
 	}
 
