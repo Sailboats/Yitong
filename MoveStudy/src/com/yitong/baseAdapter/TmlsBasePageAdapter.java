@@ -21,12 +21,12 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 /*
- * ÏòviewpagerÖĞ·ÅÈëfragment
+ * ï¿½ï¿½viewpagerï¿½Ğ·ï¿½ï¿½ï¿½fragment
  */
 
 public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 
-	// ÏòviewpagerÀïÃæ¼ÓÈëfragment
+	// ï¿½ï¿½viewpagerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fragment
 	private MyTask myTask;
 	Handler myHandler;
 	public ArrayList<Fragment> mFragments = new ArrayList<Fragment>();;
@@ -45,7 +45,7 @@ public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 	}
 
 	/**
-	 * ¼´¼ÓÔØlistviewÓÖ¼ÓÔØ tabs
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½listviewï¿½Ö¼ï¿½ï¿½ï¿½ tabs
 	 * 
 	 * @param listObject
 	 */
@@ -62,7 +62,7 @@ public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 	}
 
 	/**
-	 * Ö»¼ÓÔØlistview²»°üº¬ tabs
+	 * Ö»ï¿½ï¿½ï¿½ï¿½listviewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tabs
 	 * 
 	 * @param listObject
 	 */
@@ -72,12 +72,12 @@ public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 
 	public void addNullFragment() {
 		CategorysEntity cate = new CategorysEntity();
-		cate.setName("Á¬½Ó´íÎó");
+		cate.setName("ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½");
 		tabs.add(cate);
 		// addTab(new HttpErrorFragment());
 	}
 
-	// Çå¿ÕfragmentÊı¾İ
+	// ï¿½ï¿½ï¿½fragmentï¿½ï¿½ï¿½ï¿½
 	public void Clear() {
 		mFragments.clear();
 		tabs.clear();
@@ -85,7 +85,7 @@ public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 
 	public void addTab(Fragment fragment) {
 		mFragments.add(fragment);
-		notifyDataSetChanged();
+//		notifyDataSetChanged();
 	}
 
 	@Override

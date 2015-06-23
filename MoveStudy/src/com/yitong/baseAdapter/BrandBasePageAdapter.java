@@ -21,11 +21,11 @@ import com.yitong.view.YiTongStatisticsFragment;
 import com.yitong.view.HomePageFragment;
 
 /*
- * ÏòviewpagerÖĞ·ÅÈëfragment
+ * ï¿½ï¿½viewpagerï¿½Ğ·ï¿½ï¿½ï¿½fragment
  */
 public class BrandBasePageAdapter extends FragmentStatePagerAdapter {
 
-	// ÏòviewpagerÀïÃæ¼ÓÈëfragment
+	// ï¿½ï¿½viewpagerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fragment
 	private MyBTask myTask;
 	Handler myHandler;
 	public ArrayList<Fragment> mFragments = new ArrayList<Fragment>();;
@@ -44,7 +44,7 @@ public class BrandBasePageAdapter extends FragmentStatePagerAdapter {
 	}
 
 	/**
-	 * ¼´¼ÓÔØlistviewÓÖ¼ÓÔØ tabs
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½listviewï¿½Ö¼ï¿½ï¿½ï¿½ tabs
 	 * 
 	 * @param listObject
 	 */
@@ -53,7 +53,6 @@ public class BrandBasePageAdapter extends FragmentStatePagerAdapter {
 
 		if (baseResponseData instanceof HomeResponseEntity) {
 			tabs = mList;
-			addTab(new HomePageFragment(mActivity, this));
 			addTab(new HomePageFragment(mActivity, this));
 		} else if (baseResponseData instanceof BrandDistributorStatictisEntity) {
 			addTab(new YiTongStatisticsFragment(mActivity, this));
@@ -66,7 +65,7 @@ public class BrandBasePageAdapter extends FragmentStatePagerAdapter {
 	}
 
 	/**
-	 * Ö»¼ÓÔØlistview²»°üº¬ tabs
+	 * Ö»ï¿½ï¿½ï¿½ï¿½listviewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tabs
 	 * 
 	 * @param listObject
 	 */
@@ -76,7 +75,7 @@ public class BrandBasePageAdapter extends FragmentStatePagerAdapter {
 
 	public void addNullFragment() {
 		CategorysEntity cate = new CategorysEntity();
-		cate.setName("Á¬½Ó´íÎó");
+		cate.setName("ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½");
 		tabs.add(cate);
 		// addTab(new HttpErrorFragment());
 	}

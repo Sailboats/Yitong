@@ -1,8 +1,12 @@
 package com.yitong.avsubobject;
 
 import java.util.Date;
+import java.util.jar.JarOutputStream;
+
+import org.json.JSONArray;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVRelation;
@@ -71,7 +75,7 @@ public class Article extends AVObject {
 	// 鍒楄〃浣嶅浘鐗�	
 	public final String LISTIMAGEFILE = "listImageFile";
 	public AVFile getListImageFile(){
-		return getAVFile(LISTIMAGEFILE);
+			return getAVFile(LISTIMAGEFILE);
 	}
 	public void setListImageFile(AVFile file){
 		put(LISTIMAGEFILE, file);
@@ -80,20 +84,20 @@ public class Article extends AVObject {
 	
 	// 姝ｆ枃鍥剧墖闆�	
 	public final String IMAGETEXT = "imagetext";
-	public AVRelation<AVObject> getImagetext(){
+	public AVRelation<ImageText> getImagetext(){
 		return getRelation(IMAGETEXT);
 	}
-	public void setImagetext(AVRelation<AVObject> relation){
+	public void setImagetext(AVRelation<ImageText> relation){
 		put(IMAGETEXT, relation);
 	}
 	
 	
 	// 鏍囩
 	public final String TAG = "tag";
-	public String getTag(){
-		return getString(TAG);
+	public JSONArray getTag(){
+		return getJSONArray(TAG);
 	}
-	public void setTag(String tag){
+	public void setTag(JSONArray tag){
 		put(TAG, tag);
 	}
 	

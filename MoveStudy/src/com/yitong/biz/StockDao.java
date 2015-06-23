@@ -13,7 +13,7 @@ import com.yitong.avsubobject.Stock;
 import com.yitong.avsubobject.TerminalStore;
 
 /**
- * ·â×°ÁË Stock (¿â´æ±í)µÄÏà¹Ø²Ù×÷
+ * å°è£…äº† Stock (åº“å­˜è¡¨)çš„ç›¸å…³æ“ä½œ
  * * @author caoligai
  */
 public class StockDao {
@@ -21,7 +21,7 @@ public class StockDao {
 	private String Tag = "StockDao";
 	
 	/**
-	 * Ôö¼ÓÒ»Ìõ¿â´æ²¢ÉÏ´«µ½·şÎñÆ÷
+	 * å¢åŠ ä¸€æ¡åº“å­˜å¹¶ä¸Šä¼ åˆ°æœåŠ¡å™¨
 	 * 
 	 * @param sku
 	 * @param count
@@ -44,7 +44,7 @@ public class StockDao {
 			stock.setUpdateFrom(1);
 			stock.save();
 		} catch (AVException e) {
-			Log.d(Tag, "ÉÏ´« Stock ³öÏÖ´íÎó");
+			Log.d(Tag, "ä¸Šä¼  Stock å‡ºç°é”™è¯¯");
 		}
 		
 		

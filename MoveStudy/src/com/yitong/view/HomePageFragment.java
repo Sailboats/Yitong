@@ -1,32 +1,32 @@
 ﻿package com.yitong.view;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
-import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TableRow.LayoutParams;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.movestudy.R;
-import com.yitong.baseAdapter.BrandBasePageAdapter;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.yitong.baseAdapter.HomeNewsAdapter;
 import com.yitong.baseAdapter.ImageAdapter;
-import com.yitong.baseAdapter.TmlsBasePageAdapter;
+import com.yitong.biz.TmlStoreArticleDao;
+import com.yitong.entity.HomeAdsEntity;
+import com.yitong.entity.HomeEntity;
 import com.yitong.widget.CircleFlowIndicator;
 import com.yitong.widget.ViewFlow;
+import com.yitong.widget.ViewFlow.ViewSwitchListener;
 
 /**
  * 
@@ -38,19 +38,21 @@ import com.yitong.widget.ViewFlow;
 @SuppressLint("ValidFragment")
 public class HomePageFragment extends Fragment {
 
-	ViewFlow viewflow;
-	CircleFlowIndicator viewflowIndicator;
-
-	RelativeLayout newsLayout;
-	TextView tvNewsItem;
-
-	LinearLayout repertoryLayout;
-
-	TableLayout table;
+	private String Tag = "HomePageFragment";
 
 	Activity myActivity;
 
-	// TmlsBasePageAdapter myAdapter;
+	ViewFlow viewflow; // 滚动图片
+	CircleFlowIndicator viewflowIndicator; // 滚动图片下面的圆圈
+
+	ListView listView; // 新闻列表
+	// PullToRefreshListView listView;
+
+	ArrayList<HomeEntity> datas; // 新闻列表数据源
+	ArrayList<byte[]> images; // 新闻列表图片
+
+	ArrayList<HomeAdsEntity> adsData; // 广告位数据
+	TextView adsTextView;	// 广告图片下方的文字说明
 
 	@SuppressLint("ValidFragment")
 	public HomePageFragment(Activity activity,
@@ -98,92 +100,79 @@ public class HomePageFragment extends Fragment {
 		// fragment第一次绘制它的用户界面的时候, 系统会调用此方法. 为了绘制fragment的UI,此方法必须返回一个View,-----
 		// 这个view是你的fragment布局的根view. 如果fragment不提供UI, 可以返回null.
 		// 填充一个布局View到ViewGrope中
+		Log.i("tag", "------------------------------->");
 
 		View view = (View) inflater
 				.inflate(R.layout.fragment_main, null, false);
-		// 初始化 ViewFlow
+		// 初始化 ViewFlow(滚动图片)
 		viewflow = (ViewFlow) view.findViewById(R.id.viewflow);
-		viewflow.setAdapter(new ImageAdapter(getActivity()));
+//		viewflow.setAdapter(new ImageAdapter(getActivity(), getActivity()
+//				.getLayoutInflater(), adsData));
 		viewflowIndicator = (CircleFlowIndicator) view
 				.findViewById(R.id.viewflowindicator);
 		viewflow.setFlowIndicator(viewflowIndicator);
-		viewflow.setTimeSpan(1000 * 3);
-		viewflow.startAutoFlowTimer();
+		adsTextView = (TextView) view.findViewById(R.id.tv_ads_summary);
 
-		// 初始化新闻
-		/*int[] tvid = { R.id.news_item1, R.id.news_item2, R.id.news_item3,
-				R.id.news_item4, R.id.news_item5 };
-		List<String> content = new ArrayList<String>();
-		content.add("您的四月份销售分析报告已生成，点击查看  [2015/4/22]");
-		content.add("雪花啤酒四川新春订货会圆满结束  [2015/4/22]");
-		content.add("把酿酒师拉进朋友圈  [2015/4/22]");
-		content.add("雪花啤酒：捧技能“明星”，酿经典品质  [2015/4/22]");
-		content.add("雪花啤酒：好雇主会让你在“任性”和“韧性”中成长  [2015/4/22]");
+		// listView = (PullToRefreshListView) view.findViewById(R.id.lv_news);
+		listView = (ListView) view.findViewById(R.id.lv_news);
 
-		for (int i = 0; i < 5; i++) {
-			newsLayout = (RelativeLayout) view.findViewById(tvid[i]);
-			tvNewsItem = (TextView) newsLayout.findViewById(R.id.tv_new_item);
-			tvNewsItem.setText(content.get(i));
-		}
+		getNewsData();
 
-		// 初始化库存信息
-		// LayoutInflater inflater = getLayoutInflater();
-		// 加载行布局(包含两个产品)
-		repertoryLayout = (LinearLayout) inflater.inflate(
-				R.layout.repertory_item, null);
-		// 设置第一个单元格
-		repertoryLayout.findViewById(R.id.image1).setBackground(
-				getResources().getDrawable(R.drawable.beer1));
-		TextView status1 = (TextView) repertoryLayout
-				.findViewById(R.id.status1);
-		status1.setText("库存充足");
-		TextView name1 = (TextView) repertoryLayout.findViewById(R.id.name1);
-		name1.setText("勇闯天涯520ml");
-		TextView percent1 = (TextView) repertoryLayout
-				.findViewById(R.id.percent1);
-		percent1.setText("85%");
-
-		// 设置第二个单元格
-		repertoryLayout.findViewById(R.id.image2).setBackground(
-				getResources().getDrawable(R.drawable.beer3));
-		TextView status2 = (TextView) repertoryLayout
-				.findViewById(R.id.status2);
-		status2.setText("库存告急");
-		status2.setTextColor(Color.RED);
-		TextView name2 = (TextView) repertoryLayout.findViewById(R.id.name2);
-		name2.setText("干啤330ml");
-		TextView percent2 = (TextView) repertoryLayout
-				.findViewById(R.id.percent2);
-		percent2.setText("25%");
-
-		
-		table = (TableLayout) view.findViewById(R.id.tr_table);
-		TableRow row = new TableRow(getActivity());
-		row.addView(repertoryLayout);
-		table.addView(row);
-		
-		// 添加第二行
-		repertoryLayout = (LinearLayout) inflater.inflate(
-				R.layout.repertory_item, null);
-		// 设置第一个单元格
-		repertoryLayout.findViewById(R.id.image1).setBackground(
-				getResources().getDrawable(R.drawable.beer4));
-		TextView status3 = (TextView) repertoryLayout
-				.findViewById(R.id.status1);
-		status3.setText("库存充足");
-		TextView name3 = (TextView) repertoryLayout.findViewById(R.id.name1);
-		name3.setText("迷彩520ml");
-		TextView percent3 = (TextView) repertoryLayout
-				.findViewById(R.id.percent1);
-		percent3.setText("60%");
-		
-		repertoryLayout.findViewById(R.id.item2).setVisibility(View.INVISIBLE);
-		
-		TableRow row2 = new TableRow(getActivity());
-		row2.addView(repertoryLayout);
-		table.addView(row2);*/
-		
 		return view;
+
 	}
+
+	/**
+	 * 获取服务器数据
+	 */
+	private void getNewsData() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				datas = new TmlStoreArticleDao().getAllArticle();
+
+				images = new TmlStoreArticleDao().getAllArticlelistImage();
+				adsData = new TmlStoreArticleDao().getAllAds();
+
+				myHandler.sendEmptyMessage(0);
+			}
+		}).start();
+
+	}
+
+	Handler myHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			Log.d(Tag, "receive the message");
+
+			listView.setAdapter(new HomeNewsAdapter(new TmlStoreArticleDao()
+					.getAllArticle(), getActivity().getLayoutInflater(),
+					images, myActivity));
+			
+			viewflow.setAdapter(new ImageAdapter(getActivity(), getActivity()
+					.getLayoutInflater(), adsData));
+			viewflow.setTimeSpan(1000 * 3);
+			viewflow.startAutoFlowTimer();
+			viewflow.setAlwaysDrawnWithCacheEnabled(true);
+			// 显示第一条广告 summary
+			adsTextView.setText(adsData.get(0).getSummary());
+			viewflow.setOnViewSwitchListener(new ViewSwitchListener() {
+
+				@Override
+				public void onSwitched(View view, int position) {
+					// TODO Auto-generated method stub
+					// 当图片切换时，图片下方的文字也将改变
+					Log.d(Tag, "广告页面切换" + position);
+					
+					adsTextView.setText(adsData.get(position % adsData.size()).getSummary());
+				}
+			});
+		}
+	};
 
 }

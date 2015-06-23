@@ -28,17 +28,17 @@ public class MyApplication extends Application {
 
 	private String Tag = "MyApplication";
 
-	private MyUser currentUser = null; // µ±Ç°ÓÃ»§
+	private MyUser currentUser = null; // å½“å‰ç”¨æˆ·
 
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
 
-		// ÉèÖÃ Last-Modified Ä£Ê½
+		// è®¾ç½® Last-Modified æ¨¡å¼
 		AVOSCloud.setLastModifyEnabled(true);
 
-		// ×¢²á LeanCloud ×ÓÀà(±ØĞëÔÚ³õÊ¼»¯ SDK¡¡Ö®Ç°)
+		// æ³¨å†Œ LeanCloud å­ç±»(å¿…é¡»åœ¨åˆå§‹åŒ– SDKã€€ä¹‹å‰)
 		AVObject.registerSubclass(Sku.class);
 		AVObject.registerSubclass(TerminalStore.class);
 		AVObject.registerSubclass(Brand.class);
@@ -52,18 +52,18 @@ public class MyApplication extends Application {
 		AVObject.registerSubclass(Article.class);
 		AVObject.registerSubclass(ImageText.class);
 
-		// ³õÊ¼»¯ LeanCloud SDK
+		// åˆå§‹åŒ– LeanCloud SDK
 		AVOSCloud.initialize(this,
 				"to0nyg7vtky1bna4ybrclwrm3hm0r94oqw45eiost7mqrbi5",
 				"kbq185r1thmzpbod54og7ml9vll7pzmb5yegd2jyyfcw3qaa");
 
 		Log.d(Tag, "AVOSCloud has been inited");
 
-		// NOTE:ÔÚ¸÷¸ö½çÃæäÖÈ¾ ImageView µÄÊ±ºò²»ÄÜÖ±½ÓÍ¨¹ı BitmapFactory.decodeByteArray()
-		// ·½·¨À´Ö±½Ó½âÂë AVFile ¶ÔÏó£¬ĞèÒªÔÚºóÌ¨Ïß³ÌÖĞ½« AVFile ¶ÔÏó×ª»»³ÉÎª byte[] Êı×é£¬Ô­Òò¿ÉÄÜÊÇÒòÎª AVFile µÄ
-		// getDate() ·½·¨²»ÄÜÖ±½ÓÔÚ UI Ïß³ÌÖĞµ÷ÓÃ
+		// NOTE:åœ¨å„ä¸ªç•Œé¢æ¸²æŸ“ ImageView çš„æ—¶å€™ä¸èƒ½ç›´æ¥é€šè¿‡ BitmapFactory.decodeByteArray()
+		// æ–¹æ³•æ¥ç›´æ¥è§£ç  AVFile å¯¹è±¡ï¼Œéœ€è¦åœ¨åå°çº¿ç¨‹ä¸­å°† AVFile å¯¹è±¡è½¬æ¢æˆä¸º byte[] æ•°ç»„ï¼ŒåŸå› å¯èƒ½æ˜¯å› ä¸º AVFile çš„
+		// getDate() æ–¹æ³•ä¸èƒ½ç›´æ¥åœ¨ UI çº¿ç¨‹ä¸­è°ƒç”¨
 
-		// ²âÊÔ´úÂë
+		// æµ‹è¯•ä»£ç 
 		/*
 		 * new Thread(){
 		 * 

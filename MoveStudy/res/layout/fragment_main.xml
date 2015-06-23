@@ -1,21 +1,23 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<!-- 主页面 -->
+
+
+<!-- 显示滑动图片 -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <!-- 主页面 -->
-
-
-    <!-- 显示滑动图片 -->
+    android:layout_height="match_parent"
+    android:background="@color/normal_layout_background"
+    android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/normal_layout_background"
-        android:orientation="vertical"
-        tools:context="${relativePackage}.${activityClass}" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/rl_viewflow_containor"
             android:layout_width="match_parent"
             android:layout_height="150dp" >
 
@@ -27,98 +29,38 @@
             <com.yitong.widget.CircleFlowIndicator
                 android:id="@+id/viewflowindicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_alignParentBottom="true"
                 android:background="#7f808080"
                 android:padding="10dip" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_alignParentBottom="true" >
+
+                <TextView
+                    android:id="@+id/tv_ads_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:maxLines="1"
+                    android:text="加载失败"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </RelativeLayout>
-        <View 
-            android:layout_height="0.5dp"
+
+        <View
             android:layout_width="match_parent"
-            />
+            android:layout_height="0.5dp" />
 
-        <!-- <include layout="@layout/top_border" /> -->
+        <!-- 显示新闻列表 -->
 
-
-        <!-- LOGO -->
-
-
-        <!--
-        <RelativeLayout
+        <ListView
+            android:id="@+id/lv_news"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:color/white" >
-
-            <ImageView
-                android:id="@+id/iv_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/logo" />
-        </RelativeLayout>
-        -->
-
-        <!--
-        <include layout="@layout/top_border" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="新闻动态"
-            android:textStyle="bold" />
-
-        新闻
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/simple_layout_corner"
-            android:orientation="vertical"
-            android:padding="7dp" >
-
-            <include
-                android:id="@+id/news_item1"
-                layout="@layout/news_item" />
-
-            <include
-                android:id="@+id/news_item2"
-                layout="@layout/news_item" />
-
-            <include
-                android:id="@+id/news_item3"
-                layout="@layout/news_item" />
-
-            <include
-                android:id="@+id/news_item4"
-                layout="@layout/news_item" />
-
-            <include
-                android:id="@+id/news_item5"
-                layout="@layout/news_item" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="库存信息"
-            android:textStyle="bold" />
-
-        <TableLayout
-            android:id="@+id/tr_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/simple_layout_corner"
-            android:padding="10dp"
-            android:stretchColumns="0" >
-        </TableLayout>
-        -->
-
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,12 +64,12 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 		super.onStart();
 		//webview = (WebView) getView().findViewById(R.id.webview);
 	}
-	//Ò»¸öfragmentÀïÃæÖÁÉÙÒª¼Ì³ĞÕâĞ©·½·¨
+	//Ò»ï¿½ï¿½fragmentï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ì³ï¿½ï¿½ï¿½Ğ©ï¿½ï¿½ï¿½ï¿½
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
-			//µ±´´½¨fragmentÊ±, ÏµÍ³µ÷ÓÃ¸Ã·½·¨. 
-			//ÔÚÊµÏÖ´úÂëÖĞ,Ó¦µ±³õÊ¼»¯ÏëÒªÔÚfragmentÖĞ±£³ÖµÄ±ØÒª×é¼ş, µ±fragment±»ÔİÍ£»òÕßÍ£Ö¹ºó¿ÉÒÔ»Ö¸´.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fragmentÊ±, ÏµÍ³ï¿½ï¿½ï¿½Ã¸Ã·ï¿½ï¿½ï¿½. 
+			//ï¿½ï¿½Êµï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½,Ó¦ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½fragmentï¿½Ğ±ï¿½ï¿½ÖµÄ±ï¿½Òªï¿½ï¿½ï¿½, ï¿½ï¿½fragmentï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ô»Ö¸ï¿½.
 			
 			super.onCreate(savedInstanceState);
 		}
@@ -82,18 +83,18 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 		@Override
 		public void onPause() {
 			// TODO Auto-generated method stub
-			//ÓÃ»§½«ÒªÀë¿ªfragmentÊ±,ÏµÍ³µ÷ÓÃÕâ¸ö·½·¨×÷ÎªµÚÒ»¸öÖ¸Ê¾(È»¶øËü²»×ÜÊÇÒâÎ¶×Åfragment½«±»Ïú»Ù.) ---
-			//ÔÚµ±Ç°ÓÃ»§»á»°½áÊøÖ®Ç°,Í¨³£Ó¦µ±ÔÚÕâÀïÌá½»ÈÎºÎÓ¦¸Ã³Ö¾Ã»¯µÄ±ä»¯(ÒòÎªÓÃ»§ÓĞ¿ÉÄÜ²»»á·µ»Ø).
+			//ï¿½Ã»ï¿½ï¿½ï¿½Òªï¿½ë¿ªfragmentÊ±,ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½Ö¸Ê¾(È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½ï¿½fragmentï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.) ---
+			//ï¿½Úµï¿½Ç°ï¿½Ã»ï¿½ï¿½á»°ï¿½ï¿½ï¿½ï¿½Ö®Ç°,Í¨ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½Îºï¿½Ó¦ï¿½Ã³Ö¾Ã»ï¿½ï¿½Ä±ä»¯(ï¿½ï¿½Îªï¿½Ã»ï¿½ï¿½Ğ¿ï¿½ï¿½Ü²ï¿½ï¿½á·µï¿½ï¿½).
 			super.onPause();
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-					
-			//fragmentµÚÒ»´Î»æÖÆËüµÄÓÃ»§½çÃæµÄÊ±ºò, ÏµÍ³»áµ÷ÓÃ´Ë·½·¨. ÎªÁË»æÖÆfragmentµÄUI,´Ë·½·¨±ØĞë·µ»ØÒ»¸öView,-----
-			// Õâ¸öviewÊÇÄãµÄfragment²¼¾ÖµÄ¸ùview. Èç¹ûfragment²»Ìá¹©UI, ¿ÉÒÔ·µ»Ønull.
-			// Ìî³äÒ»¸ö²¼¾ÖViewµ½ViewGropeÖĞ
+				Log.d(null, "this.onCreateView()");
+			//fragmentï¿½ï¿½Ò»ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½, ÏµÍ³ï¿½ï¿½ï¿½ï¿½Ã´Ë·ï¿½ï¿½ï¿½. Îªï¿½Ë»ï¿½ï¿½ï¿½fragmentï¿½ï¿½UI,ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·µï¿½ï¿½Ò»ï¿½ï¿½View,-----
+			// ï¿½ï¿½ï¿½viewï¿½ï¿½ï¿½ï¿½ï¿½fragmentï¿½ï¿½ï¿½ÖµÄ¸ï¿½view. ï¿½ï¿½ï¿½fragmentï¿½ï¿½ï¿½á¹©UI, ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½null.
+			// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Viewï¿½ï¿½ViewGropeï¿½ï¿½
 			
 			view = (View)inflater.inflate(R.layout.fragment_dis_tmlm, null, false);
 			areasSpinner = (Spinner)view.findViewById(R.id.spinner_area);
@@ -124,22 +125,22 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 			
 			Dis_Tmls_ItemEntity entity1 = new Dis_Tmls_ItemEntity();
 			entity1.setPctureurl(null);
-			entity1.setName("ÏÊÓÖ¶à³¬ÊĞ");
+			entity1.setName("ï¿½ï¿½ï¿½Ö¶à³¬ï¿½ï¿½");
 			entity1.setGrade(3);
-			entity1.setNeed("ÈıÈÕÄÚĞèÒª²¹»õ");
+			entity1.setNeed("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 			list.add(entity1);
 			Dis_Tmls_ItemEntity entity2 = new Dis_Tmls_ItemEntity();
 			entity2.setPctureurl(null);
-			entity2.setName("ÒôÀÖºĞ×Ó");
+			entity2.setName("ï¿½ï¿½ï¿½Öºï¿½ï¿½ï¿½");
 			entity2.setGrade(4);
-			entity2.setNeed("ÈıÈÕÄÚĞèÒª²¹»õ");
+			entity2.setNeed("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 			list.add(entity2);
 		}
 		
 		private void onLoad() {
 			mListView.stopRefresh();
 			mListView.stopLoadMore();
-			mListView.setRefreshTime("¸Õ¸Õ");
+			mListView.setRefreshTime("ï¿½Õ¸ï¿½");
 		}
 		
 
@@ -156,15 +157,15 @@ public class Dis_TmlmFragment extends Fragment implements IXListViewListener{
 					
 					Dis_Tmls_ItemEntity entity11 = new Dis_Tmls_ItemEntity();
 					entity11.setPctureurl(null);
-					entity11.setName("ÏÊÓÖ¶à³¬ÊĞ");
+					entity11.setName("ï¿½ï¿½ï¿½Ö¶à³¬ï¿½ï¿½");
 					entity11.setGrade(3);
-					entity11.setNeed("ÈıÈÕÄÚĞèÒª²¹»õ");
+					entity11.setNeed("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 					list.add(entity11);
 					Dis_Tmls_ItemEntity entity22 = new Dis_Tmls_ItemEntity();
 					entity22.setPctureurl(null);
-					entity22.setName("ÒôÀÖºĞ×Ó");
+					entity22.setName("ï¿½ï¿½ï¿½Öºï¿½ï¿½ï¿½");
 					entity22.setGrade(4);
-					entity22.setNeed("ÈıÈÕÄÚĞèÒª²¹»õ");
+					entity22.setNeed("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½");
 					list.add(entity22);
 					XlistAdapter myAdapter = new XlistAdapter(list,myActivity);
 					mListView.setAdapter(myAdapter);
@@ -231,7 +232,7 @@ class XlistAdapter extends BaseAdapter{
 		
 		tml_picture.setImageResource(R.drawable.dis_tmlm_picture);
 		tml_name.setText(list.get(arg0).getName());
-		String text = "µêÆÌÆÀ¼¶£º"+list.get(arg0).getGrade()+"ĞÇ";
+		String text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+list.get(arg0).getGrade()+"ï¿½ï¿½";
 		tml_grade.setText(text);
 		tml_ratingbarBar.setRating(list.get(arg0).getGrade());
 		tml_need.setText(list.get(arg0).getNeed());

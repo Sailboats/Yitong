@@ -18,6 +18,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -86,7 +87,7 @@ public class TmlStoreShowSkus extends Fragment {
 
 			@Override
 			public void run() {
-
+				Looper.prepare();
 				images = new TmlStoreSkusDao().getAllSkuImage();
 
 				names = new TmlStoreSkusDao().getAllSkuNames();

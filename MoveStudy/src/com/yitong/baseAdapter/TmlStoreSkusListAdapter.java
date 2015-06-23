@@ -83,7 +83,7 @@ public class TmlStoreSkusListAdapter extends BaseAdapter {
 
 			holder = new viewHolder();
 
-			convertView = inflater.inflate(R.layout.tmlstore_listview_item,
+			convertView = inflater.inflate(R.layout.tmlstore_skus_listview_item,
 					null);
 			holder.img = (ImageView) convertView
 					.findViewById(R.id.tmlstore_listview_item_iv);

@@ -12,7 +12,7 @@ import com.avos.avoscloud.AVUser;
  * 
  * * @author caoligai
  */
-@JSONType(ignores = "terminalStores")
+@JSONType(ignores="terminalStores")
 public class MyUser extends AVUser {
 
 	// 昵称
@@ -26,47 +26,48 @@ public class MyUser extends AVUser {
 		put(NICKNAME, name);
 	}
 
-	
 	// 用户名
 	public final String USERNAME = "username";
-	public String getUserName(){
+
+	public String getUserName() {
 		return getString(USERNAME);
 	}
-	public void setUserName(String name){
+
+	public void setUserName(String name) {
 		put(USERNAME, name);
 	}
-	
-	
+
 	// 头像
 	public final String HEADPORTRAIT = "headPortrait";
-	public AVFile getHeadportrait(){
+
+	public AVFile getHeadportrait() {
 		return getAVFile(HEADPORTRAIT);
 	}
-	public void setHeadPortrait(AVFile file){
+
+	public void setHeadPortrait(AVFile file) {
 		put(HEADPORTRAIT, file);
 	}
-	
-	
+
 	// 角色
 	public final String ROLE = "role";
-	public int getRole(){
+
+	public int getRole() {
 		return getInt(ROLE);
 	}
-	public void setRole(int role){
+
+	public void setRole(int role) {
 		put(ROLE, role);
 	}
-	
-	
+
 	// 管理终端店
 	public final String TERMINALSTORES = "terminalStores";
-	public AVRelation<TerminalStore> getTerminalStores(){
+
+	public AVRelation<TerminalStore> getTerminalStores() {
 		return getRelation(TERMINALSTORES);
 	}
-	public void setTerminalStores(AVRelation<TerminalStore> relation){
+
+	public void setTerminalStores(AVRelation<TerminalStore> relation) {
 		put(TERMINALSTORES, relation);
 	}
-	
-	
-	
 
 }
