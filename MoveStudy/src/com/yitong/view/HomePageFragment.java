@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.movestudy.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -64,6 +68,9 @@ public class HomePageFragment extends Fragment {
 
 	HomeNewsAdapter newsAdapter;
 	ImageAdapter viewFlowAdapter;
+
+	ProgressDialog pd;
+	protected boolean progressShow = false;
 
 	@SuppressLint("ValidFragment")
 	public HomePageFragment(Activity activity,
@@ -152,6 +159,20 @@ public class HomePageFragment extends Fragment {
 		listView = (ListView) view.findViewById(R.id.lv_news);
 
 		getData(0); // 获取数据
+		
+		// 显示进度条
+		pd = new ProgressDialog(myActivity);
+		pd.setCanceledOnTouchOutside(false);
+		pd.setOnCancelListener(new OnCancelListener() {
+
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				progressShow = false;
+			}
+		});
+		pd.setMessage("正在获取数据...");
+		pd.show();
+		progressShow = true;
 
 		return view;
 
@@ -190,6 +211,10 @@ public class HomePageFragment extends Fragment {
 			super.handleMessage(msg);
 			Log.d(Tag, "receive the message");
 
+			if (progressShow) {
+				pd.dismiss();
+			}
+			
 			if (0 == msg.what) {
 				Log.d(Tag, "message.what = " + msg.what);
 				newsAdapter = new HomeNewsAdapter(datas, getActivity()
@@ -222,6 +247,7 @@ public class HomePageFragment extends Fragment {
 
 			if (1 == msg.what) {
 				Log.d(Tag, "message.what = " + msg.what);
+				Toast.makeText(myActivity, "刷新成功", Toast.LENGTH_SHORT).show();
 				scrollview.onRefreshComplete();
 				newsAdapter = new HomeNewsAdapter(datas, getActivity()
 						.getLayoutInflater(), images, myActivity);
