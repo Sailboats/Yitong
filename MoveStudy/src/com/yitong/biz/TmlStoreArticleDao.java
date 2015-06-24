@@ -30,7 +30,7 @@ public class TmlStoreArticleDao {
 	 * 
 	 * @return List<HomeEntity>
 	 */
-	public ArrayList<HomeEntity> getAllArticle() {
+	public ArrayList<HomeEntity> getAllArticle(int limit) {
 		Log.d(Tag, "this.getAllArticle()");
 
 		AVQuery<Article> query = AVObject.getQuery(Article.class);
@@ -38,6 +38,9 @@ public class TmlStoreArticleDao {
 
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
 		query.addDescendingOrder("createdAt");
+		if (limit != 0) {
+			query.setLimit(limit);
+		}
 
 		try {
 			// ArrayList<byte[]> images = getAllArticlelistImage();
@@ -62,13 +65,16 @@ public class TmlStoreArticleDao {
 	 * 
 	 * @return
 	 */
-	public ArrayList<byte[]> getAllArticlelistImage() {
+	public ArrayList<byte[]> getAllArticlelistImage(int limit) {
 		Log.d(Tag, "this.getAllArticlelistImage()");
 		ArrayList<byte[]> images = new ArrayList<byte[]>();
 
 		AVQuery<Article> query = AVObject.getQuery(Article.class);
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
 		query.addDescendingOrder("createdAt");
+		if (0 != limit) {
+			query.setLimit(limit);
+		}
 
 		try {
 			List<Article> articles = query.find();
@@ -82,10 +88,14 @@ public class TmlStoreArticleDao {
 		return images;
 	}
 
+	/**
+	 * 获取所有广告位数据（最多返回 5 条）
+	 * @return
+	 */
 	public ArrayList<HomeAdsEntity> getAllAds() {
 		AVQuery<Article> query = AVQuery.getQuery(Article.class);
 		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
-		query.addAscendingOrder("createdAt");
+		query.addDescendingOrder("createdAt");
 
 		ArrayList<HomeAdsEntity> result = new ArrayList<HomeAdsEntity>();
 		try {
@@ -94,8 +104,10 @@ public class TmlStoreArticleDao {
 //				JSONArray array = article.getJSONArray("tag");
 //				Log.d(Tag, array.toString());
 				if (article.getTag().toString().contains("ads")) {
-					result.add(new HomeAdsEntity(article.getListImageFile()
-							.getData(), article.getSummary()));
+					if (result.size() < 5) {
+						result.add(new HomeAdsEntity(article.getListImageFile()
+								.getData(), article.getSummary()));
+					}
 				}
 			}
 		} catch (AVException e) {

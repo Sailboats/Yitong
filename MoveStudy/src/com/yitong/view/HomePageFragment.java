@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,7 +29,6 @@ import android.widget.Toast;
 import com.example.movestudy.R;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.yitong.baseAdapter.HomeNewsAdapter;
 import com.yitong.baseAdapter.ImageAdapter;
@@ -68,6 +68,8 @@ public class HomePageFragment extends Fragment {
 
 	HomeNewsAdapter newsAdapter;
 	ImageAdapter viewFlowAdapter;
+	
+	private int newsCount = 20;	// 新闻数量计数器
 
 	ProgressDialog pd;
 	protected boolean progressShow = false;
@@ -125,15 +127,27 @@ public class HomePageFragment extends Fragment {
 
 		scrollview = (PullToRefreshScrollView) view
 				.findViewById(R.id.scrollview_refresh);
-		scrollview.setMode(Mode.PULL_FROM_START);
+		scrollview.setMode(Mode.BOTH);
 		// scrollview.getLoadingLayoutProxy().setLastUpdatedLabel("lastUpdateLabel");
-		scrollview.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
+		// 设置上拉和下拉监听
+		scrollview.setOnRefreshListener(new  com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2<ScrollView>() {
 
 			@Override
-			public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-				// 执行刷新函数
-				Log.d(Tag, "开始刷新");
-				getData(1);
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ScrollView> refreshView) {
+				// 下拉时，显示服务器最前 20 条新闻
+				Log.d(Tag, "开始下拉刷新");
+				newsCount = 20;
+				new GetDataTask().execute(20,20);
+			}
+
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ScrollView> refreshView) {
+				// 上拉时，增加 20 条新闻
+				Log.d(Tag, "开始上拉刷新");
+				newsCount += 20;
+				new GetDataTask().execute(newsCount,newsCount);
 			}
 		});
 
@@ -158,7 +172,7 @@ public class HomePageFragment extends Fragment {
 		// listView = (PullToRefreshListView) view.findViewById(R.id.lv_news);
 		listView = (ListView) view.findViewById(R.id.lv_news);
 
-		getData(0); // 获取数据
+		new GetDataTask().execute(20,20); // 获取数据(默认获取前 20 条新闻)
 		
 		// 显示进度条
 		pd = new ProgressDialog(myActivity);
@@ -177,32 +191,71 @@ public class HomePageFragment extends Fragment {
 		return view;
 
 	}
+	
+	/**
+	 * 获取数据
+	 * 
+	 * @author caoligai
+	 *
+	 */
+	private class GetDataTask extends AsyncTask<Integer, Void, String[]> {
+
+		@Override
+		protected String[] doInBackground(Integer... params) {
+			// Simulates a background job.
+			datas = new TmlStoreArticleDao().getAllArticle(params[0]);
+
+			images = new TmlStoreArticleDao().getAllArticlelistImage(params[1]);
+			if (adsData == null) {
+				adsData = new TmlStoreArticleDao().getAllAds();
+			}
+			
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String[] result) {
+			// Do some stuff here
+
+			// Call onRefreshComplete when the list has been refreshed.
+			scrollview.onRefreshComplete();
+			if (newsCount == 20) {
+				myHandler.sendEmptyMessage(0);
+			}else {
+				myHandler.sendEmptyMessage(1);
+			}
+			
+			super.onPostExecute(result);
+		}
+	}
+	
+	
 
 	/**
 	 * @param mode
 	 *            0 第一次获取数据 1 刷新数据
 	 */
-	private void getData(final int mode) {
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				Log.d(Tag, "new Thread.start()");
-				datas = new TmlStoreArticleDao().getAllArticle();
-
-				images = new TmlStoreArticleDao().getAllArticlelistImage();
-				adsData = new TmlStoreArticleDao().getAllAds();
-
-				if (0 == mode) {
-					myHandler.sendEmptyMessage(0);
-				} else if (1 == mode) {
-					myHandler.sendEmptyMessage(1);
-				}
-			}
-		}).start();
-
-	}
+//	private void getData(final int mode) {
+//
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				Log.d(Tag, "new Thread.start()");
+//				datas = new TmlStoreArticleDao().getAllArticle();
+//
+//				images = new TmlStoreArticleDao().getAllArticlelistImage();
+//				adsData = new TmlStoreArticleDao().getAllAds();
+//
+//				if (0 == mode) {
+//					myHandler.sendEmptyMessage(0);
+//				} else if (1 == mode) {
+//					myHandler.sendEmptyMessage(1);
+//				}
+//			}
+//		}).start();
+//
+//	}
 
 	Handler myHandler = new Handler() {
 
@@ -252,11 +305,13 @@ public class HomePageFragment extends Fragment {
 				newsAdapter = new HomeNewsAdapter(datas, getActivity()
 						.getLayoutInflater(), images, myActivity);
 				listView.setAdapter(newsAdapter);
+//				newsAdapter.notifyDataSetChanged();
 				setListViewHeight(listView); // 因为 ScrollView 和 ListView
 												// 有冲突，所以要调用此方法解决
 				viewFlowAdapter = new ImageAdapter(getActivity(), getActivity()
 						.getLayoutInflater(), adsData);
 				viewflow.setAdapter(viewFlowAdapter);
+//				viewFlowAdapter.notifyDataSetChanged();
 				adsTextView.setText(adsData.get(0).getSummary());
 			}
 

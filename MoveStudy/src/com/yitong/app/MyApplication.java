@@ -1,15 +1,23 @@
 package com.yitong.app;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONArray;
+
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
+import com.example.movestudy.R;
 import com.yitong.avsubobject.Article;
 import com.yitong.avsubobject.Brand;
 import com.yitong.avsubobject.ImageText;
@@ -64,24 +72,46 @@ public class MyApplication extends Application {
 		// getDate() 方法不能直接在 UI 线程中调用
 
 		// 测试代码
-		/*
-		 * new Thread(){
-		 * 
-		 * @Override public void run() { // TODO Auto-generated method stub
-		 * List<String> names = new TmlStoreSkusDao().getAllSkuNames();
-		 * 
-		 * for (String string : names) { Log.d(Tag, string); }
-		 * 
-		 * }
-		 * 
-		 * 
-		 * }.start();
-		 */
+
+		/*new Thread() {
+
+			@Override
+			public void run() {
+				for (int i = 0; i < 100; i++) {
+					Article article = new Article();
+					article.setTitle("title " + i);
+					article.setSummary("summary " + i);
+
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					Bitmap bm = BitmapFactory.decodeResource(getResources(),
+							R.drawable.test);
+					bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+					
+					article.setListImageFile(new AVFile("testImage.jpg",stream.toByteArray()));
+					article.setHeaderImageFile(new AVFile("testImage.jpg",stream.toByteArray()));
+					
+					LinkedList<String> tag = new LinkedList<String>();
+					tag.add("news");
+					if (i % 2 == 0) {
+						tag.add("ads");
+					}
+					article.setTag(new JSONArray(tag));
+					article.setSource("caoligai_test");
+					try {
+						article.save();
+					} catch (AVException e) {
+						e.printStackTrace();
+					}
+					
+					Log.d(Tag, "成功插入一条测试数据");
+				}
+			}
+		}.start();*/
 
 	}
 
 	public MyUser getCurrentUser() {
-			return currentUser;
+		return currentUser;
 	}
 
 	public void setCurrentUser(MyUser currentUser) {
