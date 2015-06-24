@@ -10,57 +10,63 @@
     android:background="@color/normal_layout_background"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/ll_content"
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/scrollview_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <RelativeLayout
-            android:id="@+id/rl_viewflow_containor"
+        <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
-            android:layout_height="150dp" >
-
-            <com.yitong.widget.ViewFlow
-                android:id="@+id/viewflow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.yitong.widget.CircleFlowIndicator
-                android:id="@+id/viewflowindicator"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_alignParentBottom="true"
-                android:background="#7f808080"
-                android:padding="10dip" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <RelativeLayout
+                android:id="@+id/rl_viewflow_containor"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_alignParentBottom="true" >
+                android:layout_height="150dp" >
 
-                <TextView
-                    android:id="@+id/tv_ads_summary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:maxLines="1"
-                    android:text="加载失败"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                <com.yitong.widget.ViewFlow
+                    android:id="@+id/viewflow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.yitong.widget.CircleFlowIndicator
+                    android:id="@+id/viewflowindicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#7f808080"
+                    android:padding="10dip" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_alignParentBottom="true" >
+
+                    <TextView
+                        android:id="@+id/tv_ads_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:maxLines="1"
+                        android:text="加载失败"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
             </RelativeLayout>
-        </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" />
 
-        <!-- 显示新闻列表 -->
+            <!-- 显示新闻列表 -->
 
-        <ListView
-            android:id="@+id/lv_news"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            <ListView
+                android:id="@+id/lv_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
 </LinearLayout>

@@ -20,9 +20,6 @@ import java.util.LinkedList;
 
 import com.example.movestudy.R;
 
-
-
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -43,12 +40,11 @@ import android.widget.Scroller;
 
 /**
  * 
- * 终端店滚动图片
- * A horizontally scrollable {@link ViewGroup} with items populated from an
- * {@link Adapter}. The ViewFlow uses a buffer to store loaded {@link View}s in.
- * The default size of the buffer is 3 elements on both sides of the currently
- * visible {@link View}, making up a total buffer size of 3 * 2 + 1 = 7. The
- * buffer size can be changed using the {@code sidebuffer} xml attribute.
+ * 终端店滚动图片 A horizontally scrollable {@link ViewGroup} with items populated from
+ * an {@link Adapter}. The ViewFlow uses a buffer to store loaded {@link View}s
+ * in. The default size of the buffer is 3 elements on both sides of the
+ * currently visible {@link View}, making up a total buffer size of 3 * 2 + 1 =
+ * 7. The buffer size can be changed using the {@code sidebuffer} xml attribute.
  * 
  */
 
@@ -101,7 +97,8 @@ public class ViewFlow extends AdapterView<Adapter> {
 		 * @param view
 		 *            the {@link View} currently in focus.
 		 * @param position
-		 *            The position in the adapter of the {@link View} currently in focus.
+		 *            The position in the adapter of the {@link View} currently
+		 *            in focus.
 		 */
 		void onSwitched(View view, int position);
 
@@ -136,12 +133,12 @@ public class ViewFlow extends AdapterView<Adapter> {
 		mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
 	}
 
-	public void startAutoFlowTimer(){
-		handler = new Handler(){
+	public void startAutoFlowTimer() {
+		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				
-				snapToScreen((mCurrentScreen+1)%getChildCount());
+
+				snapToScreen((mCurrentScreen + 1) % getChildCount());
 				Message message = handler.obtainMessage(0);
 				sendMessageDelayed(message, timeSpan);
 			}
@@ -150,27 +147,41 @@ public class ViewFlow extends AdapterView<Adapter> {
 		Message message = handler.obtainMessage(0);
 		handler.sendMessageDelayed(message, timeSpan);
 	}
-	public void stopAutoFlowTimer(){
-		if(handler!=null)
+
+	public void stopAutoFlowTimer() {
+		if (handler != null)
 			handler.removeMessages(0);
 		handler = null;
 	}
-	
+
 	public void onConfigurationChanged(Configuration newConfig) {
 		if (newConfig.orientation != mLastOrientation) {
 			mLastOrientation = newConfig.orientation;
-			getViewTreeObserver().addOnGlobalLayoutListener(orientationChangeListener);
+			getViewTreeObserver().addOnGlobalLayoutListener(
+					orientationChangeListener);
 		}
 	}
 
+	// public int getViewsCount() {
+	// return mSideBuffer;
+	// }
+
+	// caoligai 修改，由于为了实现无限滚动设置了 viewflow 的 count 为一个很大的值，而 CircleFlowIndicator
+	// 的绘制个数需要根据前者来决定，所以这里修改了 getViewsCount() 方法，方便使用者可以设置 viewflow 的真实 count
+	private int mCount;
+
+	public void setCount(int count) {
+		mCount = count;
+	}
+
 	public int getViewsCount() {
-		return mSideBuffer;
+		return mCount;
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		
+
 		final int width = MeasureSpec.getSize(widthMeasureSpec);
 		final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		if (widthMode != MeasureSpec.EXACTLY && !isInEditMode()) {
@@ -241,7 +252,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
 			mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING;
-			if(handler!=null)
+			if (handler != null)
 				handler.removeMessages(0);
 			break;
 
@@ -301,7 +312,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 			}
 
 			mTouchState = TOUCH_STATE_REST;
-			if(handler!=null){
+			if (handler != null) {
 				Message message = handler.obtainMessage(0);
 				handler.sendMessageDelayed(message, timeSpan);
 			}
@@ -340,7 +351,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
 			mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING;
-			if(handler!=null)
+			if (handler != null)
 				handler.removeMessages(0);
 			break;
 
@@ -389,15 +400,15 @@ public class ViewFlow extends AdapterView<Adapter> {
 						&& mCurrentScreen < getChildCount() - 1) {
 					// Fling hard enough to move right
 					snapToScreen(mCurrentScreen + 1);
-				} 
-//				else if (velocityX < -SNAP_VELOCITY
-//							&& mCurrentScreen == getChildCount() - 1) {
-//						snapToScreen(0);
-//				} 
-//				else if (velocityX > SNAP_VELOCITY
-//							&& mCurrentScreen == 0) {
-//						snapToScreen(getChildCount() - 1);
-//				}
+				}
+				// else if (velocityX < -SNAP_VELOCITY
+				// && mCurrentScreen == getChildCount() - 1) {
+				// snapToScreen(0);
+				// }
+				// else if (velocityX > SNAP_VELOCITY
+				// && mCurrentScreen == 0) {
+				// snapToScreen(getChildCount() - 1);
+				// }
 				else {
 					snapToDestination();
 				}
@@ -410,7 +421,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 
 			mTouchState = TOUCH_STATE_REST;
 
-			if(handler!=null){
+			if (handler != null) {
 				Message message = handler.obtainMessage(0);
 				handler.sendMessageDelayed(message, timeSpan);
 			}
@@ -485,8 +496,9 @@ public class ViewFlow extends AdapterView<Adapter> {
 		int dx = (mCurrentScreen * getWidth()) - mScroller.getCurrX();
 		mScroller.startScroll(mScroller.getCurrX(), mScroller.getCurrY(), dx,
 				0, 0);
-		if(dx == 0)
-			onScrollChanged(mScroller.getCurrX() + dx, mScroller.getCurrY(), mScroller.getCurrX() + dx, mScroller.getCurrY());
+		if (dx == 0)
+			onScrollChanged(mScroller.getCurrX() + dx, mScroller.getCurrY(),
+					mScroller.getCurrX() + dx, mScroller.getCurrY());
 		if (uiThread)
 			invalidate();
 		else
@@ -513,7 +525,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 	public void setAdapter(Adapter adapter) {
 		setAdapter(adapter, 0);
 	}
-	
+
 	public void setAdapter(Adapter adapter, int initialPosition) {
 		if (mAdapter != null) {
 			mAdapter.unregisterDataSetObserver(mDataSetObserver);
@@ -528,20 +540,20 @@ public class ViewFlow extends AdapterView<Adapter> {
 		}
 		if (mAdapter == null || mAdapter.getCount() == 0)
 			return;
-		
-		setSelection(initialPosition);		
+
+		setSelection(initialPosition);
 	}
-	
+
 	@Override
 	public View getSelectedView() {
 		return (mCurrentBufferIndex < mLoadedViews.size() ? mLoadedViews
 				.get(mCurrentBufferIndex) : null);
 	}
 
-    @Override
-    public int getSelectedItemPosition() {
-        return mCurrentAdapterIndex;
-    }
+	@Override
+	public int getSelectedItemPosition() {
+		return mCurrentAdapterIndex;
+	}
 
 	/**
 	 * Set the FlowIndicator
@@ -559,9 +571,9 @@ public class ViewFlow extends AdapterView<Adapter> {
 		mScroller.forceFinished(true);
 		if (mAdapter == null)
 			return;
-		
+
 		position = Math.max(position, 0);
-		position =  Math.min(position, mAdapter.getCount()-1);
+		position = Math.min(position, mAdapter.getCount() - 1);
 
 		ArrayList<View> recycleViews = new ArrayList<View>();
 		View recycleView;
@@ -573,16 +585,21 @@ public class ViewFlow extends AdapterView<Adapter> {
 		View currentView = makeAndAddView(position, true,
 				(recycleViews.isEmpty() ? null : recycleViews.remove(0)));
 		mLoadedViews.addLast(currentView);
-		
-		for(int offset = 1; mSideBuffer - offset >= 0; offset++) {
+
+		for (int offset = 1; mSideBuffer - offset >= 0; offset++) {
 			int leftIndex = position - offset;
 			int rightIndex = position + offset;
-			if(leftIndex >= 0)
-				mLoadedViews.addFirst(makeAndAddView(leftIndex, false,
-						(recycleViews.isEmpty() ? null : recycleViews.remove(0))));
-			if(rightIndex < mAdapter.getCount())
-				mLoadedViews.addLast(makeAndAddView(rightIndex, true,
-						(recycleViews.isEmpty() ? null : recycleViews.remove(0))));
+			if (leftIndex >= 0)
+				mLoadedViews
+						.addFirst(makeAndAddView(
+								leftIndex,
+								false,
+								(recycleViews.isEmpty() ? null : recycleViews
+										.remove(0))));
+			if (rightIndex < mAdapter.getCount())
+				mLoadedViews
+						.addLast(makeAndAddView(rightIndex, true, (recycleViews
+								.isEmpty() ? null : recycleViews.remove(0))));
 		}
 
 		mCurrentBufferIndex = mLoadedViews.indexOf(currentView);
@@ -625,11 +642,11 @@ public class ViewFlow extends AdapterView<Adapter> {
 		if (direction > 0) { // to the right
 			mCurrentAdapterIndex++;
 			mCurrentBufferIndex++;
-			
-//			if(direction > 1) {
-//				mCurrentAdapterIndex += mAdapter.getCount() - 2;
-//				mCurrentBufferIndex += mAdapter.getCount() - 2;
-//			}
+
+			// if(direction > 1) {
+			// mCurrentAdapterIndex += mAdapter.getCount() - 2;
+			// mCurrentBufferIndex += mAdapter.getCount() - 2;
+			// }
 
 			View recycleView = null;
 
@@ -650,12 +667,12 @@ public class ViewFlow extends AdapterView<Adapter> {
 		} else { // to the left
 			mCurrentAdapterIndex--;
 			mCurrentBufferIndex--;
-			
-//			if(direction < -1) {
-//				mCurrentAdapterIndex -= mAdapter.getCount() - 2;
-//				mCurrentBufferIndex -= mAdapter.getCount() - 2;
-//			}
-			
+
+			// if(direction < -1) {
+			// mCurrentAdapterIndex -= mAdapter.getCount() - 2;
+			// mCurrentBufferIndex -= mAdapter.getCount() - 2;
+			// }
+
 			View recycleView = null;
 
 			// Remove view outside buffer range

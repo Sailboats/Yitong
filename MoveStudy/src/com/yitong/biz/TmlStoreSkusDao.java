@@ -43,7 +43,8 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		ArrayList<Sku> skus = new ArrayList<Sku>();
 		
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		query.addDescendingOrder("createdAt");
 		
 		try {
@@ -71,7 +72,8 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<String> list = new ArrayList<String>();
 
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		query.addDescendingOrder("createdAt");
 
 		try {
@@ -101,7 +103,8 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<byte[]> list = new ArrayList<byte[]>();
 
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		query.addDescendingOrder("createdAt");
 
 		try {
@@ -130,7 +133,8 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		List<String> ids = new ArrayList<String>();
 		
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		query.addDescendingOrder("createdAt");
 		
 		try {
@@ -156,6 +160,7 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		Sku sku = null;
 		
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 //		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
 		try {
 			sku = query.get(objectId);
@@ -175,7 +180,8 @@ public class TmlStoreSkusDao {
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
 		Sku sku;
 		List<PackingSpecification> list = new ArrayList<PackingSpecification>();
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		query.addDescendingOrder("createdAt");
 		
 		try {
@@ -201,7 +207,8 @@ public class TmlStoreSkusDao {
 	 */
 	public byte[] getImageById(String id){
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		Sku sku = null;
 		byte [] image = null;
 		
@@ -217,7 +224,8 @@ public class TmlStoreSkusDao {
 	
 	public String getNameById(String id){
 		AVQuery<Sku> query = AVObject.getQuery(Sku.class);
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+//		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
 		Sku sku  = null;
 		String name = null;
 		
