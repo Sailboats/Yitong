@@ -20,6 +20,7 @@ import com.avos.avoscloud.AVObject;
 import com.example.movestudy.R;
 import com.yitong.avsubobject.Article;
 import com.yitong.avsubobject.Brand;
+import com.yitong.avsubobject.Gift;
 import com.yitong.avsubobject.ImageText;
 import com.yitong.avsubobject.InvestigateEveryday;
 import com.yitong.avsubobject.MarketingChannel;
@@ -44,7 +45,7 @@ public class MyApplication extends Application {
 		super.onCreate();
 
 		// 设置 Last-Modified 模式
-		AVOSCloud.setLastModifyEnabled(true);
+//		AVOSCloud.setLastModifyEnabled(true);
 
 		// 注册 LeanCloud 子类(必须在初始化 SDK　之前)
 		AVObject.registerSubclass(Sku.class);
@@ -59,7 +60,8 @@ public class MyApplication extends Application {
 		AVObject.registerSubclass(Promotion.class);
 		AVObject.registerSubclass(Article.class);
 		AVObject.registerSubclass(ImageText.class);
-
+		AVObject.registerSubclass(Gift.class);
+		
 		// 初始化 LeanCloud SDK
 		AVOSCloud.initialize(this,
 				"to0nyg7vtky1bna4ybrclwrm3hm0r94oqw45eiost7mqrbi5",

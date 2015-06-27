@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:maxLines="1"
-                        android:text="加载失败"
+                        android:text="Summary"
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -65,7 +65,8 @@
             <ListView
                 android:id="@+id/lv_news"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:dividerPadding="4dp" />
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 

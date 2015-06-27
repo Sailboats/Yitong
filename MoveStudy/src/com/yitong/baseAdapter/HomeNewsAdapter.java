@@ -3,6 +3,7 @@ package com.yitong.baseAdapter;
 import java.util.ArrayList;
 
 import com.example.movestudy.R;
+import com.yitong.entity.GiftEntity;
 import com.yitong.entity.HomeEntity;
 
 import android.content.Context;
@@ -15,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * 首页新闻列表适配器 
+ * 首页新闻列表/积分商城首页 适配器 
  * * @author caoligai
  */
 public class HomeNewsAdapter extends BaseAdapter {
@@ -25,6 +26,8 @@ public class HomeNewsAdapter extends BaseAdapter {
 	private ArrayList<byte[]> images;
 
 	LayoutInflater inflater;
+	
+	private ArrayList<GiftEntity> datas1;	// 礼品表数据
 
 	Context context;
 
@@ -36,11 +39,24 @@ public class HomeNewsAdapter extends BaseAdapter {
 		this.inflater = inflater;
 		this.context = context;
 	}
+	
+	public HomeNewsAdapter(ArrayList<GiftEntity> datas,LayoutInflater inflater,Context context){
+		super();
+		this.datas1 = datas;
+//		this.images = images;
+		this.inflater = inflater;
+		this.context = context;
+	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return datas.size();
+		if (datas==null) {
+			return datas1.size();
+		}else {
+			return datas.size();
+		}
+		
 	}
 
 	@Override
@@ -77,13 +93,27 @@ public class HomeNewsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		HomeEntity data = datas.get(position);
-		holder.image.setImageBitmap(BitmapFactory.decodeByteArray(images.get(position),0,images.get(position).length
-				));
+		// 如果是首页新闻
+		if (datas != null) {
+			
+			HomeEntity data = datas.get(position);
+			holder.image.setImageBitmap(BitmapFactory.decodeByteArray(images.get(position),0,images.get(position).length
+					));
 //		holder.image.setImageBitmap(BitmapFactory.decodeByteArray(data.getImage(), 0, data.getImage().length));
-		holder.title.setText(data.getTitle());
-		holder.summary.setText(data.getSummary());
-		holder.id.setText(data.getId());
+			holder.title.setText(data.getTitle());
+			holder.summary.setText(data.getSummary());
+			holder.id.setText(data.getId());
+		}
+		
+		// 如果是积分商城
+		else{
+			GiftEntity data = datas1.get(position);;
+			holder.image.setImageBitmap(BitmapFactory.decodeByteArray(data.getImage(), 0, data.getImage().length));
+			holder.title.setText(data.getGiftName());
+			holder.summary.setText(data.getSummary());
+			holder.id.setText(data.getObjectId());
+		}
+		
 
 		return convertView;
 	}

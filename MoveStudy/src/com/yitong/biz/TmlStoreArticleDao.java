@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import android.util.Log;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVQuery.CachePolicy;
@@ -30,13 +29,19 @@ public class TmlStoreArticleDao {
 	 * 
 	 * @return List<HomeEntity>
 	 */
-	public ArrayList<HomeEntity> getAllArticle(int limit) {
+	public ArrayList<HomeEntity> getAllArticle(int limit,boolean cache) {
 		Log.d(Tag, "this.getAllArticle()");
 
 		AVQuery<Article> query = AVObject.getQuery(Article.class);
 		ArrayList<HomeEntity> result = new ArrayList<HomeEntity>();
 
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		if (cache && query.hasCachedResult()) {
+			Log.d(Tag, "set the cache");
+			query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		}else {
+			Log.d(Tag, "don't set the cache");
+			query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
+		}
 		query.addDescendingOrder("createdAt");
 		if (limit != 0) {
 			query.setLimit(limit);
@@ -65,12 +70,18 @@ public class TmlStoreArticleDao {
 	 * 
 	 * @return
 	 */
-	public ArrayList<byte[]> getAllArticlelistImage(int limit) {
+	public ArrayList<byte[]> getAllArticlelistImage(int limit,boolean cache) {
 		Log.d(Tag, "this.getAllArticlelistImage()");
 		ArrayList<byte[]> images = new ArrayList<byte[]>();
 
 		AVQuery<Article> query = AVObject.getQuery(Article.class);
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		if (cache && query.hasCachedResult()) {
+			Log.d(Tag, "set the cache");
+			query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		}else {
+			Log.d(Tag, "don't set the cache");
+			query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
+		}
 		query.addDescendingOrder("createdAt");
 		if (0 != limit) {
 			query.setLimit(limit);
@@ -92,9 +103,16 @@ public class TmlStoreArticleDao {
 	 * 获取所有广告位数据（最多返回 5 条）
 	 * @return
 	 */
-	public ArrayList<HomeAdsEntity> getAllAds() {
-		AVQuery<Article> query = AVQuery.getQuery(Article.class);
-		query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+	public ArrayList<HomeAdsEntity> getAllAds(boolean cache) {
+		Log.d(Tag, "开始查询广告");
+		AVQuery<Article> query = AVObject.getQuery(Article.class);
+		if (cache && query.hasCachedResult()) {
+			Log.d(Tag, "set the cache");
+			query.setCachePolicy(CachePolicy.CACHE_ELSE_NETWORK);
+		}else {
+			Log.d(Tag, "don't set the cache");
+			query.setCachePolicy(CachePolicy.NETWORK_ELSE_CACHE);
+		}
 		query.addDescendingOrder("createdAt");
 
 		ArrayList<HomeAdsEntity> result = new ArrayList<HomeAdsEntity>();

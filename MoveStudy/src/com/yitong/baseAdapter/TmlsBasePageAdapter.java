@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yitong.entity.CategorysEntity;
+import com.yitong.entity.GiftResponseEntity;
 import com.yitong.entity.HomeResponseEntity;
 import com.yitong.entity.TmlStoreInputEntity;
 import com.yitong.entity.base.BaseResponseData;
 import com.yitong.ui.TmlStore_MainActivity.MyTask;
 import com.yitong.view.HomePageFragment;
+import com.yitong.view.TmlStoreGiftFragment;
 import com.yitong.view.TmlStoreShowSkus;
 
 import android.R.integer;
@@ -56,8 +58,11 @@ public class TmlsBasePageAdapter extends FragmentStatePagerAdapter {
 			tabs = mList;
 			addTab(new HomePageFragment(mActivity, this));
 		} else if (baseResponseData instanceof TmlStoreInputEntity) {
-			Log.d(null, "addTab TmlStoreInputFragment");
+			Log.d(null, "addTab TmlStoreShowSkusFragment");
 			addTab(new TmlStoreShowSkus(mActivity, this));
+		}else if (baseResponseData instanceof GiftResponseEntity) {
+			Log.d(null, "addTab TmlStoreGiftFragment");
+			addTab(new TmlStoreGiftFragment(mActivity, this));
 		}
 	}
 

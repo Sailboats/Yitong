@@ -43,9 +43,11 @@ import com.example.movestudy.R;
 import com.yitong.baseAdapter.TmlsBasePageAdapter;
 import com.yitong.biz.BaseDao;
 import com.yitong.biz.HomeDao;
+import com.yitong.biz.TmlGiftDaoforFrame;
 import com.yitong.biz.TmlStoreInputDao;
 import com.yitong.config.Constants;
 import com.yitong.entity.CategorysEntity;
+import com.yitong.entity.GiftEntity;
 import com.yitong.entity.HomeResponseEntity;
 import com.yitong.entity.NavigationModel;
 import com.yitong.entity.base.BaseResponseData;
@@ -84,6 +86,7 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
   
     private HomeDao homeDao;
     private	TmlStoreInputDao inputDao;
+    private TmlGiftDaoforFrame giftDao;
 
 
     private List<Object> categoryList;
@@ -179,6 +182,8 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
     	  homeDao = new HomeDao(this);
     	  
     	  inputDao = new TmlStoreInputDao(this);
+    	  
+    	  giftDao = new TmlGiftDaoforFrame(this);
     }
 
     private void initViewPager() {
@@ -273,6 +278,11 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
                     case 1:
                     	Log.d(tag , "click the item " + position);
                     	new MyTask().execute(inputDao);
+                    	break;
+                    	
+                    case 6:
+                    	Log.d(tag, "click the item " + position);
+                    	new MyTask().execute(giftDao);
                     	break;
 
                 }
@@ -506,6 +516,8 @@ public class TmlStore_MainActivity extends BaseSlidingFragmentActivity implement
             	getResulltFromDao(map, homeDao);
             }else if (dao instanceof TmlStoreInputDao) {
 				getResulltFromDao(map, inputDao);
+			}else if (dao instanceof TmlGiftDaoforFrame) {
+				getResulltFromDao(map, giftDao);
 			}
 
 			return map;

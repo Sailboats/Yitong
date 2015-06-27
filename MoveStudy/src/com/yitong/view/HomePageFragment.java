@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -73,6 +72,8 @@ public class HomePageFragment extends Fragment {
 
 	ProgressDialog pd;
 	protected boolean progressShow = false;
+	
+	private boolean isFirstOpen = true;		// 第一次打开，显示所有已缓存数据
 
 	@SuppressLint("ValidFragment")
 	public HomePageFragment(Activity activity,
@@ -137,6 +138,7 @@ public class HomePageFragment extends Fragment {
 					PullToRefreshBase<ScrollView> refreshView) {
 				// 下拉时，显示服务器最前 20 条新闻
 				Log.d(Tag, "开始下拉刷新");
+				isFirstOpen  = false;
 				newsCount = 20;
 				new GetDataTask().execute(20,20);
 			}
@@ -146,6 +148,7 @@ public class HomePageFragment extends Fragment {
 					PullToRefreshBase<ScrollView> refreshView) {
 				// 上拉时，增加 20 条新闻
 				Log.d(Tag, "开始上拉刷新");
+				isFirstOpen = false;
 				newsCount += 20;
 				new GetDataTask().execute(newsCount,newsCount);
 			}
@@ -184,7 +187,7 @@ public class HomePageFragment extends Fragment {
 				progressShow = false;
 			}
 		});
-		pd.setMessage("正在获取数据...");
+		pd.setMessage("正在获取数据");
 		pd.show();
 		progressShow = true;
 
@@ -203,13 +206,27 @@ public class HomePageFragment extends Fragment {
 		@Override
 		protected String[] doInBackground(Integer... params) {
 			// Simulates a background job.
-			datas = new TmlStoreArticleDao().getAllArticle(params[0]);
-
-			images = new TmlStoreArticleDao().getAllArticlelistImage(params[1]);
-			if (adsData == null) {
-				adsData = new TmlStoreArticleDao().getAllAds();
+			if (isFirstOpen) {
+				// 第一次打开，显示所有缓存数据
+				datas = new TmlStoreArticleDao().getAllArticle(params[0], true);
+				images = new TmlStoreArticleDao().getAllArticlelistImage(params[0], true);
+				adsData = new TmlStoreArticleDao().getAllAds(true);
+				
+				// 如果没有缓存数据，则从网络获取
+				if (datas.size() == 0 || images.size() == 0 || adsData.size() == 0) {
+					datas = new TmlStoreArticleDao().getAllArticle(params[0], false);
+					images = new TmlStoreArticleDao().getAllArticlelistImage(params[0], false);
+					adsData = new TmlStoreArticleDao().getAllAds(false);
+				}
+			}else {
+				datas = new TmlStoreArticleDao().getAllArticle(params[0],false);
+				
+				images = new TmlStoreArticleDao().getAllArticlelistImage(params[1],false);
+				if (adsData == null) {
+					adsData = new TmlStoreArticleDao().getAllAds(false);
+				}
 			}
-			
+			Log.d(Tag, "datas.size() = " + datas.size() + " images.size() = " + images.size() + " adsData.size() = " + adsData.size());
 			return null;
 		}
 
