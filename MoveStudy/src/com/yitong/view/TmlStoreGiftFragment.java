@@ -13,8 +13,10 @@ import com.yitong.app.MyApplication;
 import com.yitong.baseAdapter.HomeNewsAdapter;
 import com.yitong.biz.GiftDao;
 import com.yitong.entity.GiftEntity;
+import com.yitong.widget.LoadingDialog;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +51,8 @@ public class TmlStoreGiftFragment extends Fragment {
 	
 	HomeNewsAdapter adapter;
 	
+	ProgressDialog pd ;
+	
 	public TmlStoreGiftFragment(Activity mActivity,
 			FragmentStatePagerAdapter adapter) {
 		this.mActivity = mActivity;
@@ -58,6 +62,15 @@ public class TmlStoreGiftFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.tmlstore_gift, null);
+		
+		initView(view);
+
+		return view;
+	}
+	
+	
+	public void initView(View view){
+		pd = new LoadingDialog().showDialog(mActivity, "正在加载礼品信息");
 
 		listView = (PullToRefreshListView) view.findViewById(R.id.lv_gifts);
 		listView.setMode(Mode.BOTH);
@@ -96,9 +109,8 @@ public class TmlStoreGiftFragment extends Fragment {
 				new MyTask().execute(showCount,null,null);
 			}});
 
+		
 		new MyTask().execute(20, null, null);
-
-		return view;
 	}
 
 	class MyTask extends AsyncTask<Integer, Void, Void> {
@@ -132,6 +144,11 @@ public class TmlStoreGiftFragment extends Fragment {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			Log.d(Tag, "received the message");
+			
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+			
 			if (0 == msg.what) {
 				adapter = new HomeNewsAdapter(datas, getActivity().getLayoutInflater(), mActivity);
 				listView.setAdapter(adapter);

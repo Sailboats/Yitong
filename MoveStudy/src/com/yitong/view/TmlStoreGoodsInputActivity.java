@@ -5,16 +5,19 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.movestudy.R;
+import com.example.movestudy.R.id;
 import com.yitong.app.MyApplication;
 import com.yitong.avsubobject.PackingSpecification;
 import com.yitong.biz.PurchasesDao;
 import com.yitong.biz.TmlStorePacksDao;
 import com.yitong.biz.TmlStoreSkusDao;
+import com.yitong.widget.LoadingDialog;
 
 import android.R.integer;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,6 +60,8 @@ public class TmlStoreGoodsInputActivity extends Activity {
 															// 为进货前库存输入框
 
 	private int date_year = 0, date_month, date_day; // 年月日
+	
+	ProgressDialog pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,7 @@ public class TmlStoreGoodsInputActivity extends Activity {
 
 	private void initView() {
 		Log.d(Tag, "id === " + getIntent().getStringExtra("id"));
+		pd = new LoadingDialog().showDialog(this, "拼了命的加载进货信息。。。");
 
 		et1 = (EditText) findViewById(R.id.tml_goods_input_single)
 				.findViewById(R.id.ev_single);
@@ -94,6 +100,16 @@ public class TmlStoreGoodsInputActivity extends Activity {
 				+ new String().valueOf(Calendar.getInstance().get(
 						Calendar.MONTH) + 1) + "-"
 				+ Calendar.getInstance().get(Calendar.DATE));
+		
+		// 设置点击状态栏返回图标返回上级页面
+				findViewById(R.id.above_title).findViewById(R.id.Linear_above_toHome).setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						finish();
+					}
+				});
 
 		// 获取数据
 		new Thread(new Runnable() {
@@ -238,6 +254,10 @@ public class TmlStoreGoodsInputActivity extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
 
 			if (0 == msg.what) {
 

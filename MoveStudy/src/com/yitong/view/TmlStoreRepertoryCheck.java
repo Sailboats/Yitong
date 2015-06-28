@@ -10,10 +10,12 @@ import com.yitong.avsubobject.PackingSpecification;
 import com.yitong.biz.StockDao;
 import com.yitong.biz.TmlStorePacksDao;
 import com.yitong.biz.TmlStoreSkusDao;
+import com.yitong.widget.LoadingDialog;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +54,8 @@ public class TmlStoreRepertoryCheck extends Activity {
 	EditText et1, et2, et3; // 三种包装类型的输入框
 
 	private int date_year = 0, date_month, date_day;
+	
+	ProgressDialog pd ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,9 @@ public class TmlStoreRepertoryCheck extends Activity {
 	private void initView() {
 
 		Log.d(Tag, "id === " + getIntent().getStringExtra("id"));
+		
+		pd = new LoadingDialog().showDialog(this, "拼了命的加载库存盘点信息。。。");
+		
 		et1 = (EditText) findViewById(
 				R.id.tmlstore_repertory_check_sengle_layout).findViewById(
 				R.id.et_single);
@@ -73,6 +80,7 @@ public class TmlStoreRepertoryCheck extends Activity {
 		et3 = (EditText) findViewById(R.id.tmlstore_repertory_check_box_layout)
 				.findViewById(R.id.et_single);
 		iv_sku = (ImageView) findViewById(R.id.iv_name);
+		iv_sku.requestFocus();
 		tv_name = (TextView) findViewById(R.id.tv_name);
 		tv_date = (TextView) findViewById(R.id.tv_check_date);
 		tv_date.setText(Calendar.getInstance().get(Calendar.YEAR)
@@ -80,6 +88,16 @@ public class TmlStoreRepertoryCheck extends Activity {
 				+ new String().valueOf(Calendar.getInstance().get(
 						Calendar.MONTH) + 1) + "-"
 				+ Calendar.getInstance().get(Calendar.DATE));
+		
+		// 设置点击状态栏返回图标返回上级页面
+		findViewById(R.id.above_title).findViewById(R.id.Linear_above_toHome).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 
 		new Thread(new Runnable() {
 
@@ -215,6 +233,11 @@ public class TmlStoreRepertoryCheck extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+			
 			if (0 == msg.what) {
 				iv_sku.setImageBitmap(BitmapFactory.decodeByteArray(image, 0,
 						image.length));

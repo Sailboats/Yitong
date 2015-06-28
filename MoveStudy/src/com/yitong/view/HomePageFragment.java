@@ -16,7 +16,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ import com.yitong.biz.TmlStoreArticleDao;
 import com.yitong.entity.HomeAdsEntity;
 import com.yitong.entity.HomeEntity;
 import com.yitong.widget.CircleFlowIndicator;
+import com.yitong.widget.LoadingDialog;
 import com.yitong.widget.ViewFlow;
 import com.yitong.widget.ViewFlow.ViewSwitchListener;
 
@@ -122,9 +126,20 @@ public class HomePageFragment extends Fragment {
 		// 这个view是你的fragment布局的根view. 如果fragment不提供UI, 可以返回null.
 		// 填充一个布局View到ViewGrope中
 		Log.i("tag", "------------------------------->");
-
+		
 		View view = (View) inflater
 				.inflate(R.layout.fragment_main, null, false);
+		
+		initView(view);
+		
+
+		return view;
+
+	}
+	
+	
+	private void initView(View view){
+		pd = new LoadingDialog().showDialog(myActivity, "拼了命的正在加载数据");
 
 		scrollview = (PullToRefreshScrollView) view
 				.findViewById(R.id.scrollview_refresh);
@@ -174,25 +189,32 @@ public class HomePageFragment extends Fragment {
 
 		// listView = (PullToRefreshListView) view.findViewById(R.id.lv_news);
 		listView = (ListView) view.findViewById(R.id.lv_news);
+		// 设置 listView 点击监听
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				TextView tv = (TextView) view.findViewById(R.id.tv_news_id);
+				Toast.makeText(myActivity, "id = " + tv.getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		new GetDataTask().execute(20,20); // 获取数据(默认获取前 20 条新闻)
 		
 		// 显示进度条
-		pd = new ProgressDialog(myActivity);
-		pd.setCanceledOnTouchOutside(false);
-		pd.setOnCancelListener(new OnCancelListener() {
-
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				progressShow = false;
-			}
-		});
-		pd.setMessage("正在获取数据");
-		pd.show();
-		progressShow = true;
-
-		return view;
-
+//		pd = new ProgressDialog(myActivity);
+//		pd.setCanceledOnTouchOutside(false);
+//		pd.setOnCancelListener(new OnCancelListener() {
+//
+//			@Override
+//			public void onCancel(DialogInterface dialog) {
+//				progressShow = false;
+//			}
+//		});
+//		pd.setMessage("正在获取数据");
+//		pd.show();
+//		progressShow = true;
 	}
 	
 	/**
@@ -248,31 +270,7 @@ public class HomePageFragment extends Fragment {
 	
 	
 
-	/**
-	 * @param mode
-	 *            0 第一次获取数据 1 刷新数据
-	 */
-//	private void getData(final int mode) {
-//
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				Log.d(Tag, "new Thread.start()");
-//				datas = new TmlStoreArticleDao().getAllArticle();
-//
-//				images = new TmlStoreArticleDao().getAllArticlelistImage();
-//				adsData = new TmlStoreArticleDao().getAllAds();
-//
-//				if (0 == mode) {
-//					myHandler.sendEmptyMessage(0);
-//				} else if (1 == mode) {
-//					myHandler.sendEmptyMessage(1);
-//				}
-//			}
-//		}).start();
-//
-//	}
+
 
 	Handler myHandler = new Handler() {
 
@@ -281,7 +279,7 @@ public class HomePageFragment extends Fragment {
 			super.handleMessage(msg);
 			Log.d(Tag, "receive the message");
 
-			if (progressShow) {
+			if (pd.isShowing()) {
 				pd.dismiss();
 			}
 			

@@ -9,8 +9,10 @@ import com.avos.avoscloud.AVQuery;
 import com.example.movestudy.R;
 import com.yitong.avsubobject.Sku;
 import com.yitong.biz.TmlStoreSkusDao;
+import com.yitong.widget.LoadingDialog;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -42,6 +44,8 @@ public class TmlStoreSkuDetialsActivity extends Activity implements
 	List<byte[]> images; // 缓存中的产品图片
 
 	List<String> names; // 缓存中的产品名称
+	
+	ProgressDialog pd ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,28 +57,15 @@ public class TmlStoreSkuDetialsActivity extends Activity implements
 
 	}
 
-	Handler myHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-
-			if (-1 == msg.what) {
-				Toast.makeText(TmlStoreSkuDetialsActivity.this, "未知错误",
-						Toast.LENGTH_SHORT).show();
-				finish();
-			}
-
-			image.setImageBitmap(BitmapFactory.decodeByteArray(
-					images.get(msg.what), 0, images.get(msg.what).length));
-			name.setText(names.get(msg.what).toString());
-
-		}
-	};
+	
 
 	/**
 	 * 初始化界面
 	 */
 	private void initView() {
 
+		pd = new LoadingDialog().showDialog(this, "正在加载 SKU 详情");
+		
 		image = (ImageView) findViewById(R.id.tmlstore_listview_item_enter_iv);
 
 		name = (TextView) findViewById(R.id.tmlstore_listview_item_enter_tv);
@@ -83,6 +74,18 @@ public class TmlStoreSkuDetialsActivity extends Activity implements
 				.setOnClickListener(this);
 		findViewById(R.id.tmlstore_listview_item_enter_btn_add)
 				.setOnClickListener(this);
+
+		// 设置点击状态栏返回图标返回上级页面
+		findViewById(R.id.above_title).findViewById(R.id.Linear_above_toHome)
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						finish();
+					}
+				});
+		
 
 		new Thread(new Runnable() {
 
@@ -142,5 +145,27 @@ public class TmlStoreSkuDetialsActivity extends Activity implements
 		}
 
 	}
+	
+	
+	Handler myHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+
+			if (-1 == msg.what) {
+				Toast.makeText(TmlStoreSkuDetialsActivity.this, "未知错误",
+						Toast.LENGTH_SHORT).show();
+				finish();
+			}
+
+			image.setImageBitmap(BitmapFactory.decodeByteArray(
+					images.get(msg.what), 0, images.get(msg.what).length));
+			name.setText(names.get(msg.what).toString());
+
+		}
+	};
 
 }
